@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:rental_mobil/core/theme/app_theme.dart';
+import 'package:rental_mobil/features/auth/presentation/screens/dashboard.dart';
+import 'package:rental_mobil/features/auth/presentation/screens/dashboard_owner.dart';
+import 'package:rental_mobil/features/auth/presentation/screens/master_data.dart';
 
 
 void main() {

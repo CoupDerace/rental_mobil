@@ -79,15 +79,15 @@ class AppTheme {
         backgroundColor: lightSurface,
         elevation: 2,
       ),
-      cardTheme: CardTheme(
-        color: lightSurface,
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: lightOutline),
-        ),
-        margin: EdgeInsets.zero,
-      ),
+      // cardTheme: CardTheme(
+      //   color: lightSurface,
+      //   elevation: 0,
+      //   shape: RoundedRectangleBorder(
+      //     borderRadius: BorderRadius.circular(12),
+      //     side: BorderSide(color: lightOutline),
+      //   ),
+      //   margin: EdgeInsets.zero,
+      // ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           backgroundColor: lightPrimary,
@@ -134,12 +134,12 @@ class AppTheme {
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       ),
-      tabBarTheme: const TabBarTheme(
-        labelColor: lightPrimary,
-        unselectedLabelColor: lightOnSurfaceVariant,
-        indicatorColor: lightPrimary,
-        dividerColor: lightOutline,
-      ),
+      // tabBarTheme: const TabBarTheme(
+      //   labelColor: lightPrimary,
+      //   unselectedLabelColor: lightOnSurfaceVariant,
+      //   indicatorColor: lightPrimary,
+      //   dividerColor: lightOutline,
+      // ),
       chipTheme: ChipThemeData(
         backgroundColor: lightSurfaceVariant,
         labelStyle: const TextStyle(fontSize: 12),
@@ -239,15 +239,15 @@ class AppTheme {
         backgroundColor: darkSurface,
         elevation: 2,
       ),
-      cardTheme: CardTheme(
-        color: darkSurface,
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: darkOutline),
-        ),
-        margin: EdgeInsets.zero,
-      ),
+      // cardTheme: CardTheme(
+      //   color: darkSurface,
+      //   elevation: 0,
+      //   shape: RoundedRectangleBorder(
+      //     borderRadius: BorderRadius.circular(12),
+      //     side: BorderSide(color: darkOutline),
+      //   ),
+      //   margin: EdgeInsets.zero,
+      // ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           backgroundColor: darkPrimary,
@@ -294,12 +294,12 @@ class AppTheme {
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       ),
-      tabBarTheme: const TabBarTheme(
-        labelColor: darkPrimary,
-        unselectedLabelColor: darkOnSurfaceVariant,
-        indicatorColor: darkPrimary,
-        dividerColor: darkOutline,
-      ),
+      // tabBarTheme: const TabBarTheme(
+      //   labelColor: darkPrimary,
+      //   unselectedLabelColor: darkOnSurfaceVariant,
+      //   indicatorColor: darkPrimary,
+      //   dividerColor: darkOutline,
+      // ),
       chipTheme: ChipThemeData(
         backgroundColor: darkSurfaceVariant,
         labelStyle: const TextStyle(fontSize: 12),
