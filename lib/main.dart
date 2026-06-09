@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:rental_mobil/core/theme/app_theme.dart';
 import 'package:rental_mobil/features/auth/presentation/screens/dashboard.dart';
 import 'package:rental_mobil/features/auth/presentation/screens/dashboard_owner.dart';
+import 'package:rental_mobil/features/auth/presentation/screens/login.dart';
 import 'package:rental_mobil/features/auth/presentation/screens/master_data.dart';
+import 'package:rental_mobil/features/auth/presentation/screens/notification.dart';
+import 'package:rental_mobil/features/report/report.dart';
+import 'package:rental_mobil/features/auth/presentation/screens/transaction.dart';
+import 'package:rental_mobil/features/setting/setting.dart';
 
 
 void main() {

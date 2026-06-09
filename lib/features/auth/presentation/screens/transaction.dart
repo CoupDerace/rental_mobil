@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:multi_rentcar/models/models.dart';
-import 'package:multi_rentcar/utils/formatters.dart';
-import 'package:multi_rentcar/theme/app_theme.dart';
+import 'package:rental_mobil/core/theme/app_theme.dart';
+import 'package:rental_mobil/core/utils/formatters.dart';
+import 'package:rental_mobil/features/auth/data/models/car_model.dart';
 
 class TransactionsScreen extends StatefulWidget {
   const TransactionsScreen({super.key});
