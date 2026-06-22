@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 class AppDropdown<T> extends StatelessWidget {
+  final T? value;
+  final List<DropdownMenuItem<T>> items;
+  final ValueChanged<T?>? onChanged;
+  final String? hint;
+
   const AppDropdown({
     super.key,
     required this.items,
     this.value,
-    this.hint,
     this.onChanged,
+    this.hint,
   });
-
-  final List<DropdownMenuItem<T>> items;
-  final T? value;
-  final String? hint;
-  final ValueChanged<T?>? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +20,7 @@ class AppDropdown<T> extends StatelessWidget {
       value: value,
       items: items,
       onChanged: onChanged,
-      decoration: InputDecoration(
-        hintText: hint,
-      ),
+      decoration: InputDecoration(hintText: hint),
     );
   }
 }

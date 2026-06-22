@@ -1,35 +1,25 @@
 import 'package:flutter/material.dart';
 
 class AppBadge extends StatelessWidget {
-  const AppBadge({
-    super.key,
-    required this.label,
-    this.backgroundColor,
-    this.textColor,
-  });
+  final String text;
+  final Color color;
 
-  final String label;
-  final Color? backgroundColor;
-  final Color? textColor;
+  const AppBadge({super.key, required this.text, required this.color});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: 4,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: backgroundColor ??
-            Theme.of(context).colorScheme.primary,
-        borderRadius: BorderRadius.circular(20),
+        color: color.withValues(alpha: .15),
+        borderRadius: BorderRadius.circular(999),
       ),
       child: Text(
-        label,
+        text,
         style: TextStyle(
-          color: textColor ?? Colors.white,
-          fontSize: 12,
+          color: color,
           fontWeight: FontWeight.w600,
+          fontSize: 12,
         ),
       ),
     );

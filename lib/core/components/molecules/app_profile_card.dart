@@ -1,32 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:rental_mobil/core/components/atoms/app_avatar.dart';
-import 'package:rental_mobil/core/components/atoms/app_text.dart';
 
 class AppProfileCard extends StatelessWidget {
+  final String name;
+  final String role;
+  final String? imageUrl;
+
   const AppProfileCard({
     super.key,
     required this.name,
-    required this.email,
+    required this.role,
     this.imageUrl,
   });
-
-  final String name;
-  final String email;
-  final String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        leading: AppAvatar(
-          imageUrl: imageUrl,
-          child: const Icon(Icons.person),
+        leading: CircleAvatar(
+          backgroundImage: imageUrl != null ? NetworkImage(imageUrl!) : null,
+          child: imageUrl == null
+              ? Text(name.isNotEmpty ? name[0] : '?')
+              : null,
         ),
-        title: AppText(
-          name,
-          fontWeight: FontWeight.bold,
-        ),
-        subtitle: AppText(email),
+        title: Text(name),
+        subtitle: Text(role),
       ),
     );
   }

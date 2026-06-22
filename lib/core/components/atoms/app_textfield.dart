@@ -1,39 +1,28 @@
 import 'package:flutter/material.dart';
 
 class AppTextField extends StatelessWidget {
+  final TextEditingController? controller;
+  final String? hint;
+  final String? label;
+  final TextInputType? keyboardType;
+  final bool enabled;
+  final int maxLines;
+  final Widget? prefix;
+  final Widget? suffix;
+  final String? Function(String?)? validator;
+
   const AppTextField({
     super.key,
     this.controller,
-    this.label,
     this.hint,
-    this.prefixIcon,
-    this.suffixIcon,
+    this.label,
     this.keyboardType,
-    this.validator,
-    this.onChanged,
-    this.readOnly = false,
     this.enabled = true,
+    this.maxLines = 1,
+    this.prefix,
+    this.suffix,
+    this.validator,
   });
-
-  final TextEditingController? controller;
-
-  final String? label;
-
-  final String? hint;
-
-  final Widget? prefixIcon;
-
-  final Widget? suffixIcon;
-
-  final TextInputType? keyboardType;
-
-  final String? Function(String?)? validator;
-
-  final ValueChanged<String>? onChanged;
-
-  final bool readOnly;
-
-  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -41,14 +30,13 @@ class AppTextField extends StatelessWidget {
       controller: controller,
       validator: validator,
       keyboardType: keyboardType,
-      onChanged: onChanged,
-      readOnly: readOnly,
       enabled: enabled,
+      maxLines: maxLines,
       decoration: InputDecoration(
         labelText: label,
         hintText: hint,
-        prefixIcon: prefixIcon,
-        suffixIcon: suffixIcon,
+        prefixIcon: prefix,
+        suffixIcon: suffix,
       ),
     );
   }

@@ -1,29 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:rental_mobil/core/components/atoms/app_text.dart';
 
 class AppInfoTile extends StatelessWidget {
+  final String title;
+  final String value;
+  final IconData? icon;
+
   const AppInfoTile({
     super.key,
-    required this.icon,
     required this.title,
-    required this.subtitle,
+    required this.value,
+    this.icon,
   });
-
-  final IconData icon;
-  final String title;
-  final String subtitle;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(icon),
-
-      title: AppText(
-        title,
-        fontWeight: FontWeight.w600,
-      ),
-
-      subtitle: AppText(subtitle),
+      leading: icon == null ? null : Icon(icon),
+      title: Text(title),
+      subtitle: Text(value),
     );
   }
 }

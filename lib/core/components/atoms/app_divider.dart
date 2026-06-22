@@ -1,20 +1,10 @@
 import 'package:flutter/material.dart';
 
 class AppDivider extends StatelessWidget {
-  const AppDivider({
-    super.key,
-    this.height = 24,
-    this.thickness = 1,
-  });
-
-  final double height;
-  final double thickness;
+  const AppDivider({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Divider(
-      height: height,
-      thickness: thickness,
-    );
+    return const Divider(height: 1);
   }
 }

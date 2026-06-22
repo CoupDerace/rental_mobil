@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
 
 class AppAvatar extends StatelessWidget {
+  final String? imageUrl;
+  final double radius;
+  final String initials;
+
   const AppAvatar({
     super.key,
     this.imageUrl,
-    this.radius = 24,
-    this.backgroundColor,
-    this.child,
+    this.radius = 20,
+    this.initials = '',
   });
-
-  final String? imageUrl;
-  final double radius;
-  final Color? backgroundColor;
-  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      radius: radius,
-      backgroundColor: backgroundColor,
-      backgroundImage:
-          imageUrl != null ? NetworkImage(imageUrl!) : null,
-      child: imageUrl == null ? child : null,
-    );
+    if (imageUrl != null && imageUrl!.isNotEmpty) {
+      return CircleAvatar(
+        radius: radius,
+        backgroundImage: NetworkImage(imageUrl!),
+      );
+    }
+
+    return CircleAvatar(radius: radius, child: Text(initials));
   }
 }

@@ -1,26 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:rental_mobil/core/components/atoms/app_textfield.dart';
-
 
 class AppSearchBar extends StatelessWidget {
+  final TextEditingController? controller;
+  final String hintText;
+  final ValueChanged<String>? onChanged;
+  final VoidCallback? onClear;
+
   const AppSearchBar({
     super.key,
     this.controller,
-    this.hint = 'Cari...',
+    this.hintText = 'Cari...',
     this.onChanged,
+    this.onClear,
   });
-
-  final TextEditingController? controller;
-  final String hint;
-  final ValueChanged<String>? onChanged;
 
   @override
   Widget build(BuildContext context) {
-    return AppTextField(
+    return TextField(
       controller: controller,
-      hint: hint,
-      prefixIcon: const Icon(Icons.search),
       onChanged: onChanged,
+      decoration: InputDecoration(
+        hintText: hintText,
+        prefixIcon: const Icon(Icons.search),
+        suffixIcon: IconButton(
+          icon: const Icon(Icons.close),
+          onPressed: onClear,
+        ),
+      ),
     );
   }
 }

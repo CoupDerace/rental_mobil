@@ -1,32 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:rental_mobil/core/components/atoms/app_text.dart';
 
 class AppStatCard extends StatelessWidget {
+  final String title;
+  final String value;
+  final IconData icon;
+  final Color color;
+
   const AppStatCard({
     super.key,
     required this.title,
     required this.value,
     required this.icon,
+    required this.color,
   });
-
-  final String title;
-  final String value;
-  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
+        child: Row(
           children: [
-            Icon(icon, size: 36),
+            CircleAvatar(
+              backgroundColor: color.withValues(alpha: .15),
+              child: Icon(icon, color: color),
+            ),
 
-            const SizedBox(height: 12),
+            const SizedBox(width: 16),
 
-            AppText(value, fontSize: 22, fontWeight: FontWeight.bold),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title),
 
-            AppText(title),
+                  const SizedBox(height: 6),
+
+                  Text(value, style: Theme.of(context).textTheme.headlineSmall),
+                ],
+              ),
+            ),
           ],
         ),
       ),

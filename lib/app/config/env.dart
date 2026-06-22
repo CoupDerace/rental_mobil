@@ -1,5 +1,13 @@
+enum AppEnvironment { development, staging, production }
+
 class Env {
-  // Masukkan URL dan Anon Key Supabase kamu di sini
-  static const String supabaseUrl = 'https://your-project.supabase.co';
-  static const String supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...';
+  Env._();
+
+  static AppEnvironment environment = AppEnvironment.development;
+
+  static bool get isDevelopment => environment == AppEnvironment.development;
+
+  static bool get isStaging => environment == AppEnvironment.staging;
+
+  static bool get isProduction => environment == AppEnvironment.production;
 }

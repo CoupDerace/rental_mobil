@@ -1,45 +1,35 @@
 import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget {
-  const AppButton({
-    super.key,
-    required this.text,
-    required this.onPressed,
-    this.icon,
-    this.width,
-    this.height = 50,
-    this.isLoading = false,
-  });
-
-  final String text;
-
+  final String label;
   final VoidCallback? onPressed;
-
   final IconData? icon;
-
-  final double? width;
-
+  final bool loading;
   final double height;
 
-  final bool isLoading;
+  const AppButton({
+    super.key,
+    required this.label,
+    this.onPressed,
+    this.icon,
+    this.loading = false,
+    this.height = 48,
+  });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width ?? double.infinity,
       height: height,
-      child: FilledButton.icon(
-        onPressed: isLoading ? null : onPressed,
-        icon: isLoading
+      child: ElevatedButton.icon(
+        onPressed: loading ? null : onPressed,
+        icon: loading
             ? const SizedBox(
                 width: 18,
                 height: 18,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                ),
+                child: CircularProgressIndicator(strokeWidth: 2),
               )
             : Icon(icon),
-        label: Text(text),
+        label: Text(label),
       ),
     );
   }

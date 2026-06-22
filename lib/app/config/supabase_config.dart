@@ -1,11 +1,15 @@
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'env.dart';
-
 class SupabaseConfig {
-  static Future<void> initialize() async {
-    await Supabase.initialize(
-      url: Env.supabaseUrl,
-      anonKey: Env.supabaseAnonKey,
-    );
-  }
+  SupabaseConfig._();
+
+  static const String url = String.fromEnvironment(
+    'SUPABASE_URL',
+    defaultValue: '',
+  );
+
+  static const String anonKey = String.fromEnvironment(
+    'SUPABASE_ANON_KEY',
+    defaultValue: '',
+  );
+
+  static bool get isConfigured => url.isNotEmpty && anonKey.isNotEmpty;
 }

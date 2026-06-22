@@ -2,47 +2,60 @@ class AppRoutes {
   AppRoutes._();
 
   // Splash
-  static const splash = '/';
+  static const String splash = '/';
 
   // Auth
-  static const login = '/login';
+  static const String login = '/login';
 
   // Dashboard
-  static const dashboard = '/dashboard';
+  static const String dashboard = '/dashboard';
+  static const String adminDashboard = '/dashboard/admin';
+  static const String ownerDashboard = '/dashboard/owner';
+  static const String operatorDashboard = '/dashboard/operator';
 
-  // User
-  static const users = '/users';
-  static const addUser = '/users/add';
-  static const editUser = '/users/edit';
+  // Users
+  static const String users = '/users';
+  static const String addUser = '/users/add';
+  static const String editUser = '/users/edit';
+  static const String userDetail = '/users/detail';
 
   // Cars
-  static const cars = '/cars';
-  static const addCar = '/cars/add';
-  static const editCar = '/cars/edit';
+  static const String cars = '/cars';
+  static const String addCar = '/cars/add';
+  static const String editCar = '/cars/edit';
+  static const String carDetail = '/cars/detail';
 
   // Drivers
-  static const drivers = '/drivers';
-  static const addDriver = '/drivers/add';
-  static const editDriver = '/drivers/edit';
+  static const String drivers = '/drivers';
+  static const String addDriver = '/drivers/add';
+  static const String editDriver = '/drivers/edit';
+  static const String driverDetail = '/drivers/detail';
 
   // Transactions
-  static const transactions = '/transactions';
-  static const addTransaction = '/transactions/add';
-  static const transactionDetail = '/transactions/detail';
+  static const String transactions = '/transactions';
+  static const String addTransaction = '/transactions/add';
+  static const String payment = '/transactions/payment';
+  static const String transactionDetail = '/transactions/detail';
 
   // Services
-  static const services = '/services';
+  static const String services = '/services';
+  static const String addService = '/services/add';
+  static const String editService = '/services/edit';
+  static const String serviceDetail = '/services/detail';
 
   // Reports
-  static const reports = '/reports';
+  static const String reports = '/reports';
+  static const String dailyReport = '/reports/daily';
+  static const String monthlyReport = '/reports/monthly';
+  static const String yearlyReport = '/reports/yearly';
 
-  // Notification
-  static const notifications = '/notifications';
+  // Notifications
+  static const String notifications = '/notifications';
 
   // Profile
-  static const profile = '/profile';
-  static const editProfile = '/profile/edit';
+  static const String profile = '/profile';
+  static const String editProfile = '/profile/edit';
 
   // Settings
-  static const settings = '/settings';
+  static const String settings = '/settings';
 }

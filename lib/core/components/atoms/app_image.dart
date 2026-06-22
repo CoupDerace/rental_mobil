@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
 class AppImage extends StatelessWidget {
+  final String path;
+  final double? width;
+  final double? height;
+  final BoxFit fit;
+  final BorderRadius? borderRadius;
+
   const AppImage({
     super.key,
     required this.path,
@@ -10,26 +16,20 @@ class AppImage extends StatelessWidget {
     this.borderRadius,
   });
 
-  final String path;
-  final double? width;
-  final double? height;
-  final BoxFit fit;
-  final BorderRadius? borderRadius;
-
   @override
   Widget build(BuildContext context) {
-    final image = Image.asset(
-      path,
-      width: width,
-      height: height,
-      fit: fit,
-    );
+    Widget image;
 
-    if (borderRadius == null) return image;
+    if (path.startsWith('http')) {
+      image = Image.network(path, width: width, height: height, fit: fit);
+    } else {
+      image = Image.asset(path, width: width, height: height, fit: fit);
+    }
 
-    return ClipRRect(
-      borderRadius: borderRadius!,
-      child: image,
-    );
+    if (borderRadius == null) {
+      return image;
+    }
+
+    return ClipRRect(borderRadius: borderRadius!, child: image);
   }
 }

@@ -1,30 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rental_mobil/app/theme/app_theme.dart';
-import 'package:rental_mobil/shared/providers/theme_provider.dart';
 
 import 'router.dart';
+import 'routes.dart';
 
-
-class RentalMobilApp extends ConsumerWidget {
+class RentalMobilApp extends StatelessWidget {
   const RentalMobilApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final mode = ref.watch(themeProvider);
-
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-
+  Widget build(BuildContext context) {
+    return MaterialApp(
       title: 'Rental Mobil',
+
+      debugShowCheckedModeBanner: false,
 
       theme: AppTheme.light,
 
       darkTheme: AppTheme.dark,
 
-      themeMode: mode,
+      themeMode: ThemeMode.system,
 
-      routerConfig: appRouter,
+      initialRoute: AppRoutes.splash,
+
+      onGenerateRoute: AppRouter.generate,
     );
   }
 }

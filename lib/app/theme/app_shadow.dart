@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 
 class AppShadow {
-  static List<BoxShadow> get soft => [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.05),
-          blurRadius: 10,
-          offset: const Offset(0, 4),
-        ),
-      ];
+  AppShadow._();
+
+  static List<BoxShadow> soft = [
+    BoxShadow(
+      color: Colors.black.withValues(alpha: .08),
+      blurRadius: 12,
+      offset: const Offset(0, 4),
+    ),
+  ];
+
+  static List<BoxShadow> medium = [
+    BoxShadow(
+      color: Colors.black.withValues(alpha: .15),
+      blurRadius: 18,
+      offset: const Offset(0, 8),
+    ),
+  ];
 }
