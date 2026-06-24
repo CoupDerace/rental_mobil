@@ -13,10 +13,14 @@ extension ContextExtension on BuildContext {
 
   double get height => screenSize.height;
 
-  bool get isDarkMode => theme.brightness == Brightness.dark;
+  bool get isMobile => width < 600;
+
+  bool get isTablet => width >= 600 && width < 1024;
+
+  bool get isDesktop => width >= 1024;
 
   void pop<T extends Object?>([T? result]) {
-    Navigator.pop(this, result);
+    Navigator.of(this).pop(result);
   }
 
   Future<T?> push<T>(Widget page) {
@@ -28,9 +32,5 @@ extension ContextExtension on BuildContext {
       this,
       MaterialPageRoute(builder: (_) => page),
     );
-  }
-
-  void showSnackBar(String message) {
-    ScaffoldMessenger.of(this).showSnackBar(SnackBar(content: Text(message)));
   }
 }

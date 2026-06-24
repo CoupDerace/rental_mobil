@@ -3,45 +3,42 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LocalStorageService {
   LocalStorageService._();
 
-  static late SharedPreferences _prefs;
+  static Future<SharedPreferences> get _prefs async =>
+      SharedPreferences.getInstance();
 
-  static Future<void> initialize() async {
-    _prefs = await SharedPreferences.getInstance();
+  static Future<void> saveString(String key, String value) async {
+    final prefs = await _prefs;
+
+    await prefs.setString(key, value);
   }
 
-  // =============================
-  // String
-  // =============================
+  static Future<String?> getString(String key) async {
+    final prefs = await _prefs;
 
-  static Future<bool> setString(String key, String value) {
-    return _prefs.setString(key, value);
+    return prefs.getString(key);
   }
 
-  static String? getString(String key) {
-    return _prefs.getString(key);
+  static Future<void> saveBool(String key, bool value) async {
+    final prefs = await _prefs;
+
+    await prefs.setBool(key, value);
   }
 
-  // =============================
-  // Bool
-  // =============================
+  static Future<bool?> getBool(String key) async {
+    final prefs = await _prefs;
 
-  static Future<bool> setBool(String key, bool value) {
-    return _prefs.setBool(key, value);
+    return prefs.getBool(key);
   }
 
-  static bool getBool(String key) {
-    return _prefs.getBool(key) ?? false;
+  static Future<void> remove(String key) async {
+    final prefs = await _prefs;
+
+    await prefs.remove(key);
   }
 
-  // =============================
-  // Remove
-  // =============================
+  static Future<void> clear() async {
+    final prefs = await _prefs;
 
-  static Future<bool> remove(String key) {
-    return _prefs.remove(key);
-  }
-
-  static Future<bool> clear() {
-    return _prefs.clear();
+    await prefs.clear();
   }
 }

@@ -1,41 +1,48 @@
 import 'package:flutter/material.dart';
 
+import 'app_app_bar.dart';
+import 'app_drawer.dart';
+
 class AppScaffold extends StatelessWidget {
-  const AppScaffold({
-    super.key,
-    required this.body,
-    this.title,
-    this.appBar,
-    this.floatingActionButton,
-    this.bottomNavigationBar,
-    this.drawer,
-    this.padding = const EdgeInsets.all(16),
-    this.backgroundColor,
-    this.resizeToAvoidBottomInset = true,
-  });
+  final String title;
 
   final Widget body;
-  final String? title;
-  final PreferredSizeWidget? appBar;
+
   final Widget? floatingActionButton;
+
   final Widget? bottomNavigationBar;
+
+  final List<Widget>? actions;
+
   final Widget? drawer;
-  final EdgeInsets padding;
+
   final Color? backgroundColor;
-  final bool resizeToAvoidBottomInset;
+
+  const AppScaffold({
+    super.key,
+    required this.title,
+    required this.body,
+    this.floatingActionButton,
+    this.bottomNavigationBar,
+    this.actions,
+    this.drawer,
+    this.backgroundColor,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       backgroundColor: backgroundColor,
-      drawer: drawer,
-      appBar: appBar,
+
+      appBar: AppAppBar(title: title, actions: actions),
+
+      drawer: drawer ?? const AppDrawer(name: "Administrator", role: "Admin"),
+
+      body: SafeArea(child: body),
+
       floatingActionButton: floatingActionButton,
+
       bottomNavigationBar: bottomNavigationBar,
-      body: SafeArea(
-        child: Padding(padding: padding, child: body),
-      ),
     );
   }
 }

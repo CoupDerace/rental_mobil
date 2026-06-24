@@ -1,4 +1,18 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/material.dart';
 
-final authProvider =
-StateProvider<bool>((ref) => false);
+class AuthProvider extends ChangeNotifier {
+  bool _authenticated = false;
+
+  bool get isAuthenticated => _authenticated;
+
+  void login() {
+    _authenticated = true;
+    notifyListeners();
+  }
+
+  void logout() {
+    _authenticated = false;
+    notifyListeners();
+  }
+}
+  

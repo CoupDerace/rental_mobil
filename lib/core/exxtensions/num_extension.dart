@@ -1,7 +1,25 @@
 extension NumExtension on num {
-  double get h => toDouble();
+  String get currency {
+    final value = toStringAsFixed(0);
 
-  double get w => toDouble();
+    final chars = value.split('').reversed.toList();
+
+    final buffer = StringBuffer();
+
+    for (int i = 0; i < chars.length; i++) {
+      if (i != 0 && i % 3 == 0) {
+        buffer.write('.');
+      }
+
+      buffer.write(chars[i]);
+    }
+
+    return "Rp ${buffer.toString().split('').reversed.join()}";
+  }
+
+  String get twoDecimal {
+    return toStringAsFixed(2);
+  }
 
   Duration get milliseconds => Duration(milliseconds: toInt());
 

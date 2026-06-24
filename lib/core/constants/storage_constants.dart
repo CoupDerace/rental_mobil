@@ -1,13 +1,17 @@
 class StorageConstants {
   StorageConstants._();
 
-  static const token = 'token';
+  static const String token = 'token';
 
-  static const rememberMe = 'remember_me';
+  static const String refreshToken = 'refresh_token';
 
-  static const theme = 'theme';
+  static const String rememberMe = 'remember_me';
 
-  static const user = 'user';
+  static const String user = 'user';
 
-  static const role = 'role';
+  static const String theme = 'theme';
+
+  static const String locale = 'locale';
+
+  static const String onboarding = 'onboarding';
 }

@@ -5,13 +5,17 @@ class SnackbarService {
 
   static final messengerKey = GlobalKey<ScaffoldMessengerState>();
 
-  static void show(String message, {Color? backgroundColor}) {
+  static void showSuccess(String message) {
+    messengerKey.currentState?.showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  static void showError(String message) {
     messengerKey.currentState?.showSnackBar(
-      SnackBar(content: Text(message), backgroundColor: backgroundColor),
+      SnackBar(backgroundColor: Colors.red, content: Text(message)),
     );
   }
 
-  static void hide() {
-    messengerKey.currentState?.hideCurrentSnackBar();
+  static void showInfo(String message) {
+    messengerKey.currentState?.showSnackBar(SnackBar(content: Text(message)));
   }
 }

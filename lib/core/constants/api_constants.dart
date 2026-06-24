@@ -3,7 +3,9 @@ class ApiConstants {
 
   static const String baseUrl = '';
 
-  static const String auth = '/auth';
+  static const String login = '/auth/login';
+
+  static const String logout = '/auth/logout';
 
   static const String users = '/users';
 
@@ -16,4 +18,8 @@ class ApiConstants {
   static const String services = '/services';
 
   static const String reports = '/reports';
+
+  static const String notifications = '/notifications';
+
+  static const String profile = '/profile';
 }

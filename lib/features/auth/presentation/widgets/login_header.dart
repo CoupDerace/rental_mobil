@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
-
-import '../../../../shared/widgets/app_logo.dart';
-import '../../../../shared/widgets/app_logo_text.dart';
+import 'package:rental_mobil/core/constants/asset_constansts.dart';
 
 class LoginHeader extends StatelessWidget {
   const LoginHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
-        AppLogo(size: 120),
+        Image.asset(AssetConstants.logo, width: 90),
 
-        SizedBox(height: 20),
+        const SizedBox(height: 24),
 
-        AppLogoText(),
+        Text(
+          "Selamat Datang",
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
 
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
 
-        Text("Silakan login untuk melanjutkan"),
+        Text(
+          "Silakan login untuk melanjutkan",
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
       ],
     );
   }

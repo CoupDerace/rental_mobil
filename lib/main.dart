@@ -8,14 +8,16 @@ import 'app/config/supabase_config.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Supabase.initialize(
-    url: SupabaseConfig.url,
-    anonKey: SupabaseConfig.anonKey,
-  );
+  if (SupabaseConfig.isConfigured) {
+    await Supabase.initialize(
+      url: SupabaseConfig.url,
+      publishableKey: SupabaseConfig.anonKey,
+    );
+  } else {
+    // Supabase not configured; skip initialization in non-production environments.
+    // ignore: avoid_print
+    print('Supabase not configured; skipping initialization.');
+  }
 
-  runApp(
-    const ProviderScope(
-      child: RentalMobilApp(),
-    ),
-  );
+  runApp(const ProviderScope(child: RentalMobilApp()));
 }

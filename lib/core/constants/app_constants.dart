@@ -7,15 +7,19 @@ class AppConstants {
 
   static const String locale = 'id_ID';
 
-  static const int animationDuration = 300;
+  static const int defaultPageSize = 10;
 
-  static const double defaultPadding = 16;
+  static const Duration animationDuration = Duration(milliseconds: 300);
 
-  static const double defaultRadius = 12;
+  static const Duration debounceDuration = Duration(milliseconds: 500);
 
-  static const double defaultElevation = 2;
+  static const double drawerWidth = 280;
 
-  static const int pageSize = 10;
+  static const double sidebarWidth = 260;
 
-  static const Duration splashDuration = Duration(seconds: 2);
+  static const double mobilePadding = 16;
+
+  static const double tabletPadding = 20;
+
+  static const double desktopPadding = 24;
 }

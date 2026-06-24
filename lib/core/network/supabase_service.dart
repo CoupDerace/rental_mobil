@@ -5,7 +5,21 @@ class SupabaseService {
 
   static SupabaseClient get client => Supabase.instance.client;
 
-  static User? get currentUser => client.auth.currentUser;
+  static GoTrueClient get auth => client.auth;
 
-  static Session? get currentSession => client.auth.currentSession;
+  static SupabaseQueryBuilder from(String table) {
+    return client.from(table);
+  }
+
+  static Future<void> signOut() {
+    return auth.signOut();
+  }
+
+  static User? get currentUser {
+    return auth.currentUser;
+  }
+
+  static Session? get currentSession {
+    return auth.currentSession;
+  }
 }

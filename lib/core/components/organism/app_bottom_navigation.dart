@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class AppBottomNavigation extends StatelessWidget {
+  final int currentIndex;
+  final ValueChanged<int> onTap;
+
   const AppBottomNavigation({
     super.key,
     required this.currentIndex,
     required this.onTap,
   });
-
-  final int currentIndex;
-  final ValueChanged<int> onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +16,23 @@ class AppBottomNavigation extends StatelessWidget {
       selectedIndex: currentIndex,
       onDestinationSelected: onTap,
       destinations: const [
-        NavigationDestination(icon: Icon(Icons.home), label: "Home"),
+        NavigationDestination(
+          icon: Icon(Icons.home_outlined),
+          selectedIcon: Icon(Icons.home),
+          label: 'Home',
+        ),
 
-        NavigationDestination(icon: Icon(Icons.directions_car), label: "Mobil"),
+        NavigationDestination(
+          icon: Icon(Icons.notifications_outlined),
+          selectedIcon: Icon(Icons.notifications),
+          label: 'Notifikasi',
+        ),
 
-        NavigationDestination(icon: Icon(Icons.person), label: "Profile"),
+        NavigationDestination(
+          icon: Icon(Icons.person_outline),
+          selectedIcon: Icon(Icons.person),
+          label: 'Profil',
+        ),
       ],
     );
   }

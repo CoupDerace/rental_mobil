@@ -1,36 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../../shared/widgets/app_logo.dart';
-import '../../../../shared/widgets/app_logo_text.dart';
-
+import 'package:provider/provider.dart';
+import 'package:rental_mobil/core/constants/asset_constansts.dart';
 import '../providers/splash_provider.dart';
 
-class SplashPage extends ConsumerStatefulWidget {
+class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
   @override
-  ConsumerState<SplashPage> createState() => _SplashPageState();
+  State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashPageState extends ConsumerState<SplashPage> {
+class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
 
-    Future.microtask(() {
-      ref.read(splashProvider.notifier).initialize(context);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<SplashProvider>().initialize(context);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: Container(
+        width: double.infinity,
+
+        alignment: Alignment.center,
+
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(AssetConstants.logo, width: 120),
 
-          children: const [AppLogo(), SizedBox(height: 24), AppLogoText()],
+            const SizedBox(height: 24),
+
+            Text(
+              "Rental Mobil",
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+
+            const SizedBox(height: 40),
+
+            const CircularProgressIndicator(),
+          ],
         ),
       ),
     );

@@ -1,7 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final themeProvider =
-StateProvider<ThemeMode>(
-  (ref) => ThemeMode.system,
-);
+class ThemeProvider extends ChangeNotifier {
+  ThemeMode _themeMode = ThemeMode.system;
+
+  ThemeMode get themeMode => _themeMode;
+
+  bool get isDark => _themeMode == ThemeMode.dark;
+
+  void setTheme(ThemeMode mode) {
+    _themeMode = mode;
+    notifyListeners();
+  }
+
+  void toggle() {
+    if (_themeMode == ThemeMode.dark) {
+      setTheme(ThemeMode.light);
+    } else {
+      setTheme(ThemeMode.dark);
+    }
+  }
+}
