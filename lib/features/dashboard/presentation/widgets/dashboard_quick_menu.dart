@@ -7,9 +7,13 @@ class DashboardQuickMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final menu = [
       ("Mobil", Icons.directions_car),
-      ("Driver", Icons.person),
-      ("User", Icons.people),
+      ("Pelanggan", Icons.people),
+      ("Rental", Icons.assignment),
+      ("Pembayaran", Icons.payments),
+      ("Pengembalian", Icons.keyboard_return),
+      ("Servis", Icons.build),
       ("Laporan", Icons.bar_chart),
+      ("User", Icons.admin_panel_settings),
     ];
 
     return GridView.builder(

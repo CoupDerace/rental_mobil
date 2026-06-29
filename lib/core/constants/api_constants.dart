@@ -11,15 +11,11 @@ class ApiConstants {
 
   static const String cars = '/cars';
 
-  static const String drivers = '/drivers';
-
   static const String transactions = '/transactions';
 
-  static const String services = '/services';
+  static const String services = '/servis';
 
   static const String reports = '/reports';
-
-  static const String notifications = '/notifications';
 
   static const String profile = '/profile';
 }

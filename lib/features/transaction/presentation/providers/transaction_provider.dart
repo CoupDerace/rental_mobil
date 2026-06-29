@@ -1,32 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:rental_mobil/core/network/supabase_service.dart';
 
 class TransactionsProvider extends ChangeNotifier {
   final searchController = TextEditingController();
 
-  final List<Map<String, dynamic>> _transactions = [
-    {
-      "id": 1,
-      "customer": "Ahmad Fauzi",
-      "car": "Toyota Avanza",
-      "driver": "Budi",
-      "startDate": "20 Juni 2026",
-      "endDate": "22 Juni 2026",
-      "total": 700000,
-      "status": "Berjalan",
-    },
-    {
-      "id": 2,
-      "customer": "Siti Nurhaliza",
-      "car": "Honda Brio",
-      "driver": "-",
-      "startDate": "25 Juni 2026",
-      "endDate": "28 Juni 2026",
-      "total": 1200000,
-      "status": "Selesai",
-    },
-  ];
+  List<Map<String, dynamic>> _transactions = [];
+  bool _loading = false;
+  String? _error;
 
   List<Map<String, dynamic>> get transactions => _transactions;
+  bool get loading => _loading;
+  String? get error => _error;
 
   List<Map<String, dynamic>> get filteredTransactions {
     if (searchController.text.isEmpty) {
@@ -41,8 +25,40 @@ class TransactionsProvider extends ChangeNotifier {
     }).toList();
   }
 
-  void refresh() {
+  Future<void> fetchTransactions() async {
+    _loading = true;
+    _error = null;
     notifyListeners();
+
+    try {
+      final response = await SupabaseService.from('rental')
+          .select('*, pelanggan(nama_pelanggan), mobil(nama_mobil)');
+      
+      _transactions = (response as List).map<Map<String, dynamic>>((e) {
+        final pelanggan = e['pelanggan'] as Map<String, dynamic>?;
+        final mobil = e['mobil'] as Map<String, dynamic>?;
+
+        return {
+          "id": e['id']?.toString() ?? '',
+          "customer": pelanggan?['nama_pelanggan'] ?? 'Pelanggan',
+          "car": mobil?['nama_mobil'] ?? 'Mobil',
+          "karyawan": "-", // PIC/Karyawan
+          "startDate": e['tanggal_mulai'] ?? '',
+          "endDate": e['tanggal_selesai'] ?? '',
+          "total": (e['total_harga'] as num?)?.toDouble() ?? 0,
+          "status": e['status'] ?? 'Berjalan',
+        };
+      }).toList();
+    } catch (e) {
+      _error = e.toString();
+    }
+
+    _loading = false;
+    notifyListeners();
+  }
+
+  void refresh() {
+    fetchTransactions();
   }
 
   @override

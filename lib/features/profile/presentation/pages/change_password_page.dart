@@ -8,12 +8,12 @@ class ChangePasswordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const AppScaffold(
+    return AppScaffold(
       title: "Ubah Password",
-      body: Padding(
-        padding: EdgeInsets.all(20),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
         child: Column(
-          children: [
+          children: const [
             AppPasswordField(hint: "Password Lama"),
 
             SizedBox(height: 16),

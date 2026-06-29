@@ -33,10 +33,11 @@ class AppScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
+      resizeToAvoidBottomInset: true,
 
       appBar: AppAppBar(title: title, actions: actions),
 
-      drawer: drawer ?? const AppDrawer(name: "Administrator", role: "Admin"),
+      drawer: drawer ?? const AppDrawer(),
 
       body: SafeArea(child: body),
 

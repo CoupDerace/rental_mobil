@@ -10,14 +10,14 @@ class AppColors {
   static const Color darkPrimary = Color(0xFFFF7A1A);
   static const Color darkPrimaryHover = Color(0xFFFF8F3A);
 
-  static const Color darkBackground = Color(0xFF081528);
-  static const Color darkSurface = Color(0xFF0F1F36);
-  static const Color darkCard = Color(0xFF122640);
+  static const Color darkBackground = Color(0xFF071329);
+  static const Color darkSurface = Color(0xFF1A243A);
+  static const Color darkCard = Color(0xFF1E2A44);
 
-  static const Color darkBorder = Color(0xFF233A59);
+  static const Color darkBorder = Color(0x14FFFFFF);
 
   static const Color darkText = Colors.white;
-  static const Color darkTextSecondary = Color(0xFFB6C2D1);
+  static const Color darkTextSecondary = Color(0xFF94A3B8);
 
   //==============================
   // Light Theme
@@ -41,7 +41,7 @@ class AppColors {
 
   static const Color success = Color(0xFF22C55E);
 
-  static const Color warning = Color(0xFFFACC15);
+  static const Color warning = Color(0xFFF59E0B);
 
   static const Color danger = Color(0xFFEF4444);
 

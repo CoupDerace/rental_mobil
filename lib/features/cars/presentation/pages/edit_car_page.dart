@@ -8,9 +8,12 @@ class EditCarPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const AppScaffold(
+    return AppScaffold(
       title: "Edit Mobil",
-      body: Padding(padding: EdgeInsets.all(20), child: CarForm()),
+      body: const SingleChildScrollView(
+        padding: EdgeInsets.all(20),
+        child: CarForm(),
+      ),
     );
   }
 }

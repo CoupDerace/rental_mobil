@@ -1,20 +1,13 @@
+import 'package:intl/intl.dart';
+
 extension NumExtension on num {
   String get currency {
-    final value = toStringAsFixed(0);
-
-    final chars = value.split('').reversed.toList();
-
-    final buffer = StringBuffer();
-
-    for (int i = 0; i < chars.length; i++) {
-      if (i != 0 && i % 3 == 0) {
-        buffer.write('.');
-      }
-
-      buffer.write(chars[i]);
-    }
-
-    return "Rp ${buffer.toString().split('').reversed.join()}";
+    final formatter = NumberFormat.currency(
+      locale: 'id_ID',
+      symbol: 'Rp ',
+      decimalDigits: 0,
+    );
+    return formatter.format(this);
   }
 
   String get twoDecimal {

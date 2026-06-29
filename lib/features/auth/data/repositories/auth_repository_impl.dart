@@ -1,27 +1,30 @@
-import 'package:rental_mobil/features/auth/domain/entities/auth.dart';
+import '../../domain/entities/auth.dart';
 import '../../domain/repositories/auth_repository.dart';
+import '../datasource/auth_remote_datasource.dart';
 
-class AuthRepositoryImpl
-implements AuthRepository{
+class AuthRepositoryImpl implements AuthRepository {
+  final AuthRemoteDataSource datasource;
 
-@override
-Future<AuthEntity> login({
+  AuthRepositoryImpl(this.datasource);
 
-required String email,
+  @override
+  Future<AuthEntity> login({
+    required String email,
+    required String password,
+  }) {
+    return datasource.login(
+      email: email,
+      password: password,
+    );
+  }
 
-required String password,
+  @override
+  Future<void> logout() {
+    return datasource.logout();
+  }
 
-}){
-
-throw UnimplementedError();
-
-}
-
-@override
-Future<void> logout(){
-
-throw UnimplementedError();
-
-}
-
+  @override
+  Future<AuthEntity?> getCurrentUser() {
+    return datasource.currentUser();
+  }
 }

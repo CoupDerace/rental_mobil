@@ -15,7 +15,7 @@ class TransactionForm extends StatelessWidget {
 
         SizedBox(height: 16),
 
-        TextField(decoration: InputDecoration(labelText: "Driver (Opsional)")),
+        TextField(decoration: InputDecoration(labelText: "Karyawan / PIC (Opsional)")),
 
         SizedBox(height: 16),
 

@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rental_mobil/app/routes/app.dart';
+import 'package:provider/provider.dart';
+import 'package:rental_mobil/app/routes/injector.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'app/config/supabase_config.dart';
+import 'app/routes/app.dart';
+
+import 'shared/providers/auth_provider.dart';
+import 'shared/providers/theme_provider.dart';
+import 'features/splash/presentation/providers/splash_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,11 +18,21 @@ Future<void> main() async {
       url: SupabaseConfig.url,
       publishableKey: SupabaseConfig.anonKey,
     );
-  } else {
-    // Supabase not configured; skip initialization in non-production environments.
-    // ignore: avoid_print
-    print('Supabase not configured; skipping initialization.');
   }
 
-  runApp(const ProviderScope(child: RentalMobilApp()));
+  await initInjector();
+
+  final authProvider = AuthProvider();
+  sl.registerSingleton<AuthProvider>(authProvider);
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: authProvider),
+        ChangeNotifierProvider(create: (_) => SplashProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+      ],
+      child: const RentalMobilApp(),
+    ),
+  );
 }

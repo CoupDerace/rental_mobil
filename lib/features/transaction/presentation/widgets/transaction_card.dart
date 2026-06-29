@@ -18,7 +18,7 @@ class TransactionCard extends StatelessWidget {
           children: [
             Text(transaction["car"]),
 
-            Text(transaction["driver"]),
+            Text(transaction["karyawan"] ?? "-"),
 
             Text("${transaction["startDate"]} - ${transaction["endDate"]}"),
           ],

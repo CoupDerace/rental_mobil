@@ -8,9 +8,12 @@ class EditProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const AppScaffold(
+    return AppScaffold(
       title: "Edit Profil",
-      body: Padding(padding: EdgeInsets.all(20), child: ProfileForm()),
+      body: const SingleChildScrollView(
+        padding: EdgeInsets.all(20),
+        child: ProfileForm(),
+      ),
     );
   }
 }

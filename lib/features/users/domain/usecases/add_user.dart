@@ -1,7 +1,12 @@
 import '../entities/user.dart';
+import '../repositories/user_repository.dart';
 
 class AddUser {
-  void call(User user) {
-    // TODO: implement add user usecase
+  final UserRepository repository;
+
+  AddUser(this.repository);
+
+  Future<void> call(User user) {
+    return repository.addUser(user);
   }
 }

@@ -7,12 +7,12 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const AppScaffold(
+    return AppScaffold(
       title: "Tentang",
-      body: Padding(
-        padding: EdgeInsets.all(20),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
         child: Column(
-          children: [
+          children: const [
             FlutterLogo(size: 100),
 
             SizedBox(height: 20),

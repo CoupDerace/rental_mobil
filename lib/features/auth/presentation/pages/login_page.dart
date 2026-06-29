@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rental_mobil/features/auth/data/datasource/auth_remote_datasource.dart';
+import 'package:rental_mobil/features/auth/data/repositories/auth_repository_impl.dart';
+import 'package:rental_mobil/features/auth/domain/usecases/login_usecase.dart';
 
 import '../providers/login_provider.dart';
 import '../widgets/login_footer.dart';
@@ -12,8 +15,14 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => LoginProvider(),
+      create:
+          (_) => LoginProvider(
+            loginUseCase: LoginUseCase(
+              AuthRepositoryImpl(AuthRemoteDataSourceImpl()),
+            ),
+          ),
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         body: SafeArea(
           child: Center(
             child: SingleChildScrollView(

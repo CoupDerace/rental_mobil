@@ -27,15 +27,11 @@ class AssetConstants {
 
   static const String car = 'assets/icons/car.svg';
 
-  static const String driver = 'assets/icons/driver.svg';
-
   static const String transaction = 'assets/icons/transaction.svg';
 
   static const String report = 'assets/icons/report.svg';
 
   static const String settings = 'assets/icons/settings.svg';
-
-  static const String notification = 'assets/icons/notification.svg';
 
   // Animation
 

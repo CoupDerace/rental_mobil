@@ -9,12 +9,12 @@ class AppRoutes {
 
   // Dashboard
   static const String dashboard = '/dashboard';
-  static const String adminDashboard = '/dashboard/admin';
-  static const String ownerDashboard = '/dashboard/owner';
-  static const String operatorDashboard = '/dashboard/operator';
+  static const String ownerDashboard = '/dashboard-owner';
+  static const String operatorDashboard = '/dashboard-operator';
 
   // Users
   static const String users = '/users';
+  static const String pelanggan = '/pelanggan';
   static const String addUser = '/users/add';
   static const String editUser = '/users/edit';
   static const String userDetail = '/users/detail';
@@ -25,11 +25,8 @@ class AppRoutes {
   static const String editCar = '/cars/edit';
   static const String carDetail = '/cars/detail';
 
-  // Drivers
-  static const String drivers = '/drivers';
-  static const String addDriver = '/drivers/add';
-  static const String editDriver = '/drivers/edit';
-  static const String driverDetail = '/drivers/detail';
+  // Karyawan
+  static const String karyawan = '/karyawan';
 
   // Transactions
   static const String transactions = '/transactions';
@@ -38,10 +35,10 @@ class AppRoutes {
   static const String transactionDetail = '/transactions/detail';
 
   // Services
-  static const String services = '/services';
-  static const String addService = '/services/add';
-  static const String editService = '/services/edit';
-  static const String serviceDetail = '/services/detail';
+  static const String services = '/servis';
+  static const String addService = '/servis/add';
+  static const String editService = '/servis/edit';
+  static const String serviceDetail = '/servis/detail';
 
   // Reports
   static const String reports = '/reports';
@@ -58,4 +55,7 @@ class AppRoutes {
 
   // Settings
   static const String settings = '/settings';
+
+  // Pengembalian
+  static const String pengembalian = '/pengembalian';
 }

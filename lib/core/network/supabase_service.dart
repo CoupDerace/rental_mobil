@@ -22,4 +22,21 @@ class SupabaseService {
   static Session? get currentSession {
     return auth.currentSession;
   }
+  static bool get isLoggedIn {
+  return auth.currentUser != null;
+}
+
+static String? get currentUserId {
+  return auth.currentUser?.id;
+}
+static Future<Map<String,dynamic>> getCurrentProfile() async {
+
+  final data = await client
+      .from("users")
+      .select()
+      .eq("auth_user_id", currentUserId!)
+      .single();
+
+  return data;
+}
 }

@@ -12,7 +12,7 @@ class TransactionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => TransactionsProvider(),
+      create: (_) => TransactionsProvider()..fetchTransactions(),
       child: AppScaffold(
         title: "Transaksi Rental",
         floatingActionButton: FloatingActionButton(

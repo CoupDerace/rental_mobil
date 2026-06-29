@@ -23,27 +23,28 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(AssetConstants.logo, width: 120),
 
-        alignment: Alignment.center,
+                const SizedBox(height: 24),
 
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(AssetConstants.logo, width: 120),
+                Text(
+                  "Rental Mobil",
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
 
-            const SizedBox(height: 24),
+                const SizedBox(height: 40),
 
-            Text(
-              "Rental Mobil",
-              style: Theme.of(context).textTheme.headlineMedium,
+                const CircularProgressIndicator(),
+              ],
             ),
-
-            const SizedBox(height: 40),
-
-            const CircularProgressIndicator(),
-          ],
+          ),
         ),
       ),
     );
