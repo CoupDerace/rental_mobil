@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 import '../providers/car_provider.dart';
 
 class CarForm extends StatefulWidget {
@@ -41,12 +42,18 @@ class _CarFormState extends State<CarForm> {
           TextFormField(
             controller: _namaController,
             decoration: const InputDecoration(labelText: "Nama Mobil"),
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+            ],
             validator: (v) => v == null || v.trim().isEmpty ? "Nama Mobil wajib diisi" : null,
           ),
           const SizedBox(height: 12),
           TextFormField(
             controller: _tipeController,
             decoration: const InputDecoration(labelText: "Tipe"),
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+            ],
             validator: (v) => v == null || v.trim().isEmpty ? "Tipe wajib diisi" : null,
           ),
           const SizedBox(height: 12),

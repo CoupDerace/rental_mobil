@@ -3,7 +3,7 @@ class AssetConstants {
 
   // Logo
 
-  static const String logo = 'assets/logos/logo.png';
+  static const String logo = 'assets/logos/logo_rent.jpg';
 
   static const String logoWhite = 'assets/logos/logo_white.png';
 

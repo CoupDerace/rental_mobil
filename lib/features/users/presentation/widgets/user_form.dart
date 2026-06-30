@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../domain/entities/user.dart';
+import 'package:flutter/services.dart';
 import '../providers/users_provider.dart';
 
 class UserForm extends StatefulWidget {
@@ -43,6 +44,9 @@ class _UserFormState extends State<UserForm> {
           TextFormField(
             controller: _namaController,
             decoration: const InputDecoration(labelText: "Nama"),
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+            ],
             validator: (v) => v == null || v.trim().isEmpty ? "Nama wajib diisi" : null,
           ),
           const SizedBox(height: 12),

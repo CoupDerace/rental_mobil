@@ -39,6 +39,7 @@ class LoginProvider extends ChangeNotifier {
         password: passwordController.text.trim(),
       );
 
+      if (!context.mounted) return;
       final auth = context.read<AuthProvider>();
 
       await auth.loadSession();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../domain/entities/karyawan.dart';
+import 'package:flutter/services.dart';
 import '../providers/karyawan_provider.dart';
 
 class KaryawanForm extends StatefulWidget {
@@ -71,6 +72,9 @@ class _KaryawanFormState extends State<KaryawanForm> {
           TextFormField(
             controller: _namaController,
             decoration: const InputDecoration(labelText: 'Nama Karyawan'),
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+            ],
             validator: (v) =>
                 v == null || v.trim().isEmpty ? 'Nama Karyawan wajib diisi' : null,
           ),

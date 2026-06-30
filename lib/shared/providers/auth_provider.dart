@@ -26,7 +26,7 @@ class AuthProvider extends ChangeNotifier {
 
     try {
       _user = SupabaseService.currentUser;
-      print("CURRENT USER = ${_user?.id}");
+      debugPrint("CURRENT USER = ${_user?.id}");
 
       if (_user != null) {
         final data = await SupabaseService.from("users")
@@ -34,11 +34,11 @@ class AuthProvider extends ChangeNotifier {
             .eq("auth_user_id", _user!.id)
             .maybeSingle();
 
-        print("PROFILE = $data");
+        debugPrint("PROFILE = $data");
         _profile = data;
       }
     } catch (e) {
-      print("Error loading session: $e");
+      debugPrint("Error loading session: $e");
       _user = null;
       _profile = null;
     }

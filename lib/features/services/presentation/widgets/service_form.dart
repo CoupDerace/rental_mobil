@@ -108,6 +108,7 @@ class _ServiceFormState extends State<ServiceForm> {
         children: [
           // Mobil Dropdown
           DropdownButtonFormField<String>(
+            isExpanded: true,
             initialValue: availableCars.any((e) => e.id == _selectedMobilId)
                 ? _selectedMobilId
                 : null,
@@ -127,7 +128,12 @@ class _ServiceFormState extends State<ServiceForm> {
                       color: _getStatusColor(c.statusMobil),
                     ),
                     const SizedBox(width: 8),
-                    Text("${c.namaMobil} (${c.platNomor})"),
+                    Expanded(
+                      child: Text(
+                        "${c.namaMobil} (${c.platNomor})",
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
                   ],
                 ),
               );

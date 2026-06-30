@@ -117,8 +117,10 @@ class PdfPreviewPage extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
             color: const Color(0xFF1E2A44),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            child: Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              alignment: WrapAlignment.center,
               children: [
                 ElevatedButton.icon(
                   onPressed: () => _saveFile(context),

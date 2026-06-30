@@ -162,6 +162,7 @@ class _RentalFormState extends State<RentalForm> {
 
           // Mobil Dropdown
           DropdownButtonFormField<String>(
+            isExpanded: true,
             initialValue: availableCars.any((e) => e.id == _selectedMobilId)
                 ? _selectedMobilId
                 : null,
@@ -181,7 +182,12 @@ class _RentalFormState extends State<RentalForm> {
                       color: _getStatusColor(c.statusMobil),
                     ),
                     const SizedBox(width: 8),
-                    Text("${c.namaMobil} (${c.platNomor})"),
+                    Expanded(
+                      child: Text(
+                        "${c.namaMobil} (${c.platNomor})",
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
                   ],
                 ),
               );

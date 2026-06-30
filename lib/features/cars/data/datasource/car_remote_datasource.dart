@@ -17,17 +17,6 @@ class CarRemoteDataSourceImpl implements CarRemoteDataSource {
      .from('mobil')
      .select();
 
- print("======= RAW =======");
-
- for(final e in response){
-
-   print(
-      "${e['nama_mobil']} "
-      "${e['status_mobil']}"
-   );
-
- }
-
  return (response as List)
       .map((e)=>CarModel.fromJson(e))
       .toList();

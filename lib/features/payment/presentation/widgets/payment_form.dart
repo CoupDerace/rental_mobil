@@ -106,6 +106,7 @@ class _PaymentFormState extends State<PaymentForm> {
         children: [
           // Rental Dropdown
           DropdownButtonFormField<String>(
+            isExpanded: true,
             initialValue: _selectedRentalId,
             decoration: const InputDecoration(
               labelText: "Rental",
@@ -126,9 +127,11 @@ class _PaymentFormState extends State<PaymentForm> {
                       color: _getMobilStatusColor(r.statusRental),
                     ),
                     const SizedBox(width: 8),
-                    Text(
-                      "${rentalModel.namaPelanggan ?? 'Pelanggan'} - ${rentalModel.namaMobil ?? 'Mobil'} ($formattedDate) - $formattedCost",
-                      overflow: TextOverflow.ellipsis,
+                    Expanded(
+                      child: Text(
+                        "${rentalModel.namaPelanggan ?? 'Pelanggan'} - ${rentalModel.namaMobil ?? 'Mobil'} ($formattedDate) - $formattedCost",
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ],
                 ),

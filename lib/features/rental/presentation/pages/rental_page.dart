@@ -38,6 +38,13 @@ class RentalPage extends StatelessWidget {
         builder: (context, provider, child) {
           return AppScaffold(
             title: "Master Data Rental",
+            floatingActionButton: isAdmin ? FloatingActionButton.extended(
+              onPressed: () => _showAddDialog(context, provider),
+              icon: const Icon(Icons.add),
+              label: const Text("Tambah Rental"),
+              backgroundColor: const Color(0xFFFF7A1A),
+              foregroundColor: Colors.white,
+            ) : null,
             body: RefreshIndicator(
               onRefresh: () => provider.fetchRentals(),
               child: ListView(
@@ -67,20 +74,6 @@ class RentalPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      if (isAdmin)
-                        ElevatedButton.icon(
-                          icon: const Icon(Icons.add, size: 18),
-                          label: const Text("Tambah Rental"),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFFF7A1A),
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                          ),
-                          onPressed: () => _showAddDialog(context, provider),
-                        ),
                     ],
                   ),
                   const SizedBox(height: 24),

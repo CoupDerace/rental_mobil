@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter/services.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:rental_mobil/core/network/supabase_service.dart';
 import '../../domain/entities/pelanggan.dart';
@@ -69,6 +70,9 @@ class _PelangganFormState extends State<PelangganForm> {
           TextFormField(
             controller: _namaController,
             decoration: const InputDecoration(labelText: "Nama Pelanggan"),
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+            ],
             validator: (v) => v == null || v.trim().isEmpty ? "Nama wajib diisi" : null,
           ),
           const SizedBox(height: 12),
@@ -101,6 +105,10 @@ class _PelangganFormState extends State<PelangganForm> {
           TextFormField(
             controller: _noIdentitasController,
             decoration: const InputDecoration(labelText: "Nomor Identitas"),
+            keyboardType: TextInputType.number,
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+            ],
             validator: (v) => v == null || v.trim().isEmpty ? "Nomor Identitas wajib diisi" : null,
           ),
           const SizedBox(height: 12),

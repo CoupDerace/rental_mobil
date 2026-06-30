@@ -37,6 +37,13 @@ class CarsPage extends StatelessWidget {
         builder: (context, provider, child) {
           return AppScaffold(
             title: "Master Data Mobil",
+            floatingActionButton: FloatingActionButton.extended(
+              onPressed: () => _showAddDialog(context, provider),
+              icon: const Icon(Icons.add),
+              label: const Text("Tambah Mobil"),
+              backgroundColor: const Color(0xFFFF7A1A),
+              foregroundColor: Colors.white,
+            ),
             body: RefreshIndicator(
               onRefresh: () => provider.fetchCars(),
               child: ListView(
@@ -65,19 +72,6 @@ class CarsPage extends StatelessWidget {
                             ),
                           ),
                         ],
-                      ),
-                      ElevatedButton.icon(
-                        icon: const Icon(Icons.add, size: 18),
-                        label: const Text("Tambah Mobil"),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFFF7A1A),
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                        ),
-                        onPressed: () => _showAddDialog(context, provider),
                       ),
                     ],
                   ),

@@ -24,8 +24,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       email: email,
       password: password,
     );
-    print(SupabaseService.currentUser?.id);
-print(SupabaseService.currentUser?.email);
 
     final user = response.user;
 

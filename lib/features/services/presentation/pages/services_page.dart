@@ -31,6 +31,13 @@ class ServicesPage extends StatelessWidget {
         builder: (context, provider, child) {
           return AppScaffold(
             title: "Data Servis Mobil",
+            floatingActionButton: FloatingActionButton.extended(
+              onPressed: () => _showAddDialog(context, provider),
+              icon: const Icon(Icons.add),
+              label: const Text("Tambah Servis"),
+              backgroundColor: const Color(0xFFFF7A1A),
+              foregroundColor: Colors.white,
+            ),
             body: RefreshIndicator(
               onRefresh: () => provider.fetchServices(),
               child: ListView(
@@ -40,38 +47,27 @@ class ServicesPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Daftar Servis Mobil",
-                            style: theme.textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Inter',
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Daftar Servis Mobil",
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Inter',
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            "Kelola data perbaikan, servis berkala, dan ganti oli mobil",
-                            style: theme.textTheme.bodySmall?.copyWith(
-                              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-                              fontFamily: 'Inter',
+                            const SizedBox(height: 4),
+                            Text(
+                              "Kelola data perbaikan, servis berkala, dan ganti oli mobil",
+                              style: theme.textTheme.bodySmall?.copyWith(
+                                color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                                fontFamily: 'Inter',
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      ElevatedButton.icon(
-                        icon: const Icon(Icons.add, size: 18),
-                        label: const Text("Tambah Servis"),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFFF7A1A),
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                          ],
                         ),
-                        onPressed: () => _showAddDialog(context, provider),
                       ),
                     ],
                   ),

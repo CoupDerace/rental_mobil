@@ -197,25 +197,27 @@ class _ReportsPageState extends State<ReportsPage> with SingleTickerProviderStat
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Laporan Operasional & Pendapatan",
-                            style: theme.textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Inter',
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Laporan Operasional & Pendapatan",
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Inter',
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            "Ringkasan performa bisnis, pendapatan harian, popularitas armada, dan export berkas",
-                            style: theme.textTheme.bodySmall?.copyWith(
-                              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-                              fontFamily: 'Inter',
+                            const SizedBox(height: 4),
+                            Text(
+                              "Ringkasan performa bisnis, pendapatan harian, popularitas armada, dan export berkas",
+                              style: theme.textTheme.bodySmall?.copyWith(
+                                color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                                fontFamily: 'Inter',
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),

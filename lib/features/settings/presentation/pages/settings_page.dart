@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../../core/components/organism/app_scaffold.dart';
 import '../../../../core/network/supabase_service.dart';
+import 'package:flutter/services.dart';
 import '../../../../shared/providers/auth_provider.dart';
 import '../../../../shared/providers/theme_provider.dart';
 
@@ -180,6 +181,9 @@ class _SettingsPageState extends State<SettingsPage> {
                         labelText: "Nama Lengkap",
                         prefixIcon: Icon(Icons.person),
                       ),
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+                      ],
                       validator: (v) => v == null || v.trim().isEmpty ? "Nama wajib diisi" : null,
                     ),
                     const SizedBox(height: 16),
