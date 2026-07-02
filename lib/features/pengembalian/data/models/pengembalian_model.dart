@@ -1,10 +1,6 @@
 import '../../domain/entities/pengembalian.dart';
 
 class PengembalianModel extends Pengembalian {
-  final String? namaPelanggan;
-  final String? namaMobil;
-  final String? platNomor;
-
   const PengembalianModel({
     required super.id,
     required super.rentalId,
@@ -12,9 +8,15 @@ class PengembalianModel extends Pengembalian {
     required super.denda,
     required super.kondisiMobil,
     super.createdAt,
-    this.namaPelanggan,
-    this.namaMobil,
-    this.platNomor,
+    super.namaPelanggan,
+    super.namaMobil,
+    super.platNomor,
+    super.tanggalSewa,
+    super.tanggalEstimasi,
+    super.tanggalPengembalian,
+    super.totalBiaya,
+    super.totalBayar,
+    super.statusRental,
   });
 
   factory PengembalianModel.fromJson(Map<String, dynamic> json) {
@@ -25,17 +27,25 @@ class PengembalianModel extends Pengembalian {
     return PengembalianModel(
       id: json['id']?.toString() ?? '',
       rentalId: json['rental_id']?.toString() ?? '',
-      tanggalKembali: json['tanggal_kembali'] != null
-          ? DateTime.parse(json['tanggal_kembali'])
-          : DateTime.now(),
+      tanggalKembali: json['tanggal_pengembalian'] != null
+          ? DateTime.parse(json['tanggal_pengembalian'])
+          : (json['tanggal_kembali'] != null
+              ? DateTime.parse(json['tanggal_kembali'])
+              : DateTime.now()),
       denda: (json['denda'] as num?)?.toDouble() ?? 0.0,
       kondisiMobil: json['kondisi_mobil']?.toString() ?? 'Baik',
       createdAt: json['created_at'] != null
           ? DateTime.parse(json['created_at'])
           : null,
-      namaPelanggan: pelangganMap?['nama']?.toString(),
-      namaMobil: mobilMap?['nama_mobil']?.toString(),
-      platNomor: mobilMap?['plat_nomor']?.toString(),
+      namaPelanggan: json['nama_pelanggan']?.toString() ?? pelangganMap?['nama']?.toString(),
+      namaMobil: json['nama_mobil']?.toString() ?? mobilMap?['nama_mobil']?.toString(),
+      platNomor: json['plat_nomor']?.toString() ?? mobilMap?['plat_nomor']?.toString(),
+      tanggalSewa: json['tanggal_sewa'] != null ? DateTime.parse(json['tanggal_sewa']) : null,
+      tanggalEstimasi: json['tanggal_estimasi'] != null ? DateTime.parse(json['tanggal_estimasi']) : null,
+      tanggalPengembalian: json['tanggal_pengembalian'] != null ? DateTime.parse(json['tanggal_pengembalian']) : null,
+      totalBiaya: (json['total_biaya'] as num?)?.toDouble(),
+      totalBayar: (json['total_bayar'] as num?)?.toDouble(),
+      statusRental: json['status_rental']?.toString(),
     );
   }
 

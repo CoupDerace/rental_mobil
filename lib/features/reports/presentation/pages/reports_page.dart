@@ -15,6 +15,7 @@ import '../widgets/laporan_pendapatan_table.dart';
 import '../widgets/laporan_rental_table.dart';
 import '../widgets/laporan_mobil_table.dart';
 import '../widgets/laporan_servis_table.dart';
+import '../widgets/laporan_pengembalian_table.dart';
 import 'pdf_preview_page.dart';
 
 class ReportsPage extends StatefulWidget {
@@ -31,7 +32,7 @@ class _ReportsPageState extends State<ReportsPage> with SingleTickerProviderStat
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 5, vsync: this);
+    _tabController = TabController(length: 6, vsync: this);
   }
 
   @override
@@ -229,64 +230,146 @@ class _ReportsPageState extends State<ReportsPage> with SingleTickerProviderStat
                     const SizedBox(height: 24),
                   ],
 
-                  // TOTAL BIAYA SERVIS summary card
-                  Card(
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFFF7A1A).withValues(alpha: 0.15),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: const Icon(
-                              Icons.build_circle_outlined,
-                              color: Color(0xFFFF7A1A),
-                              size: 28,
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "TOTAL BIAYA SERVIS",
-                                  overflow: TextOverflow.ellipsis,
-                                  style: theme.textTheme.bodyMedium?.copyWith(
-                                    color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Inter',
-                                  ),
+                  // TOTAL BIAYA SERVIS & TOTAL PENGEMBALIAN summary cards
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      final isWide = constraints.maxWidth > 600;
+                      final cardServis = Card(
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFFF7A1A).withValues(alpha: 0.15),
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
-                                const SizedBox(height: 4),
-                                FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: Text(
-                                    NumberFormat.currency(
-                                      locale: 'id_ID',
-                                      symbol: 'Rp ',
-                                      decimalDigits: 0,
-                                    ).format(provider.totalBiayaServis),
-                                    style: theme.textTheme.headlineSmall?.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Inter',
-                                      color: theme.colorScheme.onSurface,
+                                child: const Icon(
+                                  Icons.build_circle_outlined,
+                                  color: Color(0xFFFF7A1A),
+                                  size: 28,
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "TOTAL BIAYA SERVIS",
+                                      overflow: TextOverflow.ellipsis,
+                                      style: theme.textTheme.bodyMedium?.copyWith(
+                                        color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Inter',
+                                      ),
                                     ),
-                                  ),
+                                    const SizedBox(height: 4),
+                                    FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                        NumberFormat.currency(
+                                          locale: 'id_ID',
+                                          symbol: 'Rp ',
+                                          decimalDigits: 0,
+                                        ).format(provider.totalBiayaServis),
+                                        style: theme.textTheme.headlineSmall?.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Inter',
+                                          color: theme.colorScheme.onSurface,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
+                        ),
+                      );
+
+                      final cardPengembalian = Card(
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  color: Colors.green.withValues(alpha: 0.15),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: const Icon(
+                                  Icons.assignment_return_outlined,
+                                  color: Colors.green,
+                                  size: 28,
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "TOTAL PENGEMBALIAN",
+                                      overflow: TextOverflow.ellipsis,
+                                      style: theme.textTheme.bodyMedium?.copyWith(
+                                        color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Inter',
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                        NumberFormat.currency(
+                                          locale: 'id_ID',
+                                          symbol: 'Rp ',
+                                          decimalDigits: 0,
+                                        ).format(provider.totalBayarPengembalian),
+                                        style: theme.textTheme.headlineSmall?.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Inter',
+                                          color: theme.colorScheme.onSurface,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+
+                      if (isWide) {
+                        return Row(
+                          children: [
+                            Expanded(child: cardServis),
+                            const SizedBox(width: 16),
+                            Expanded(child: cardPengembalian),
+                          ],
+                        );
+                      } else {
+                        return Column(
+                          children: [
+                            cardServis,
+                            const SizedBox(height: 16),
+                            cardPengembalian,
+                          ],
+                        );
+                      }
+                    },
                   ),
                   const SizedBox(height: 24),
 
@@ -519,6 +602,54 @@ class _ReportsPageState extends State<ReportsPage> with SingleTickerProviderStat
                 }
               },
             ),
+            const SizedBox(height: 16),
+            _buildExportRow(
+              context,
+              title: "Laporan Pengembalian",
+              onPdf: () async {
+                _showLoadingDialog(context);
+                try {
+                  final path = await pdfService.exportPengembalian(
+                    data: provider.filteredPengembalian,
+                    dari: provider.dariTanggal,
+                    sampai: provider.sampaiTanggal,
+                  );
+                  if (context.mounted) {
+                    Navigator.pop(context);
+                    _previewPdf(context, path, "laporan_pengembalian_${DateFormat('yyyyMMdd').format(DateTime.now())}.pdf");
+                    await OpenFilex.open(path);
+                  }
+                } catch (e) {
+                  if (context.mounted) {
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Gagal export PDF: $e"), backgroundColor: Colors.red),
+                    );
+                  }
+                }
+              },
+              onExcel: () async {
+                _showLoadingDialog(context);
+                try {
+                  final path = await excelService.exportPengembalianExcel(
+                    data: provider.filteredPengembalian,
+                    dari: provider.dariTanggal,
+                    sampai: provider.sampaiTanggal,
+                  );
+                  if (context.mounted) {
+                    Navigator.pop(context);
+                    await _handleExcelExport(context, path, "laporan_pengembalian_${DateFormat('yyyyMMdd').format(DateTime.now())}.xlsx");
+                  }
+                } catch (e) {
+                  if (context.mounted) {
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Gagal export Excel: $e"), backgroundColor: Colors.red),
+                    );
+                  }
+                }
+              },
+            ),
           ],
         ),
       ),
@@ -606,6 +737,7 @@ class _ReportsPageState extends State<ReportsPage> with SingleTickerProviderStat
               Tab(text: "Armada Populer"),
               Tab(text: "Harian"),
               Tab(text: "Servis"),
+              Tab(text: "Pengembalian"),
             ],
           ),
           SizedBox(
@@ -707,6 +839,29 @@ class _ReportsPageState extends State<ReportsPage> with SingleTickerProviderStat
                       const SizedBox(height: 16),
                       Expanded(
                         child: LaporanServisTable(list: provider.filteredServis),
+                      ),
+                    ],
+                  ),
+                ),
+
+                // Tab 6: Pengembalian
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      TextField(
+                        controller: provider.pengembalianSearchController,
+                        decoration: InputDecoration(
+                          hintText: "Cari Pengembalian (Pelanggan, Mobil, Plat, Status, Kondisi)...",
+                          prefixIcon: const Icon(Icons.search),
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                          contentPadding: const EdgeInsets.symmetric(vertical: 8),
+                        ),
+                        onChanged: provider.onSearchChanged,
+                      ),
+                      const SizedBox(height: 16),
+                      Expanded(
+                        child: LaporanPengembalianTable(list: provider.filteredPengembalian),
                       ),
                     ],
                   ),

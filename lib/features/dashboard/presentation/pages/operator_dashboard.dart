@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rental_mobil/core/network/supabase_service.dart';
 import '../../../../core/components/organism/app_scaffold.dart';
+import '../../../../core/components/atoms/notification_bell.dart';
 
 class OperatorDashboard extends StatefulWidget {
   const OperatorDashboard({super.key});
@@ -107,6 +108,9 @@ class _OperatorDashboardState extends State<OperatorDashboard> {
 
     return AppScaffold(
       title: "Dashboard Operator",
+      actions: const [
+        NotificationBell(),
+      ],
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : RefreshIndicator(

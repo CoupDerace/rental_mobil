@@ -101,6 +101,11 @@ import '../../features/reports/domain/repositories/report_repository.dart';
 import '../../features/reports/domain/usecases/get_reports.dart';
 import '../../features/reports/presentation/providers/reports_provider.dart';
 
+import '../../features/notifications/data/datasource/notification_remote_datasource.dart';
+import '../../features/notifications/data/repositories/notification_repository_impl.dart';
+import '../../features/notifications/domain/repositories/notification_repository.dart';
+import '../../features/notifications/presentation/providers/notification_provider.dart';
+
 final sl = GetIt.instance;
 
 Future<void> initInjector() async {
@@ -109,29 +114,17 @@ Future<void> initInjector() async {
     () => CarRemoteDataSourceImpl(),
   );
 
-  sl.registerLazySingleton<CarRepository>(
-    () => CarRepositoryImpl(sl()),
-  );
+  sl.registerLazySingleton<CarRepository>(() => CarRepositoryImpl(sl()));
 
-  sl.registerLazySingleton(
-    () => GetCars(sl()),
-  );
+  sl.registerLazySingleton(() => GetCars(sl()));
 
-  sl.registerLazySingleton(
-    () => AddCar(sl()),
-  );
+  sl.registerLazySingleton(() => AddCar(sl()));
 
-  sl.registerLazySingleton(
-    () => UpdateCar(sl()),
-  );
+  sl.registerLazySingleton(() => UpdateCar(sl()));
 
-  sl.registerLazySingleton(
-    () => DeleteCar(sl()),
-  );
+  sl.registerLazySingleton(() => DeleteCar(sl()));
 
-  sl.registerLazySingleton(
-    () => SearchCar(sl()),
-  );
+  sl.registerLazySingleton(() => SearchCar(sl()));
 
   sl.registerFactory(
     () => CarsProvider(
@@ -173,23 +166,13 @@ Future<void> initInjector() async {
     () => AuthRemoteDataSourceImpl(),
   );
 
-  sl.registerLazySingleton<AuthRepository>(
-    () => AuthRepositoryImpl(sl()),
-  );
+  sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(sl()));
 
-  sl.registerLazySingleton(
-    () => LoginUseCase(sl()),
-  );
+  sl.registerLazySingleton(() => LoginUseCase(sl()));
 
-  sl.registerLazySingleton(
-    () => LogoutUseCase(sl()),
-  );
+  sl.registerLazySingleton(() => LogoutUseCase(sl()));
 
-  sl.registerFactory(
-    () => LoginProvider(
-      loginUseCase: sl(),
-    ),
-  );
+  sl.registerFactory(() => LoginProvider(loginUseCase: sl()));
 
   // ================= DASHBOARD =================
   sl.registerLazySingleton<DashboardRemoteDatasource>(
@@ -200,21 +183,13 @@ Future<void> initInjector() async {
     () => DashboardRepositoryImpl(sl()),
   );
 
-  sl.registerLazySingleton(
-    () => GetDashboardUseCase(sl()),
-  );
+  sl.registerLazySingleton(() => GetDashboardUseCase(sl()));
 
-  sl.registerLazySingleton(
-    () => GetRecentActivities(sl()),
-  );
+  sl.registerLazySingleton(() => GetRecentActivities(sl()));
 
-  sl.registerLazySingleton(
-    () => GetStatistics(sl()),
-  );
+  sl.registerLazySingleton(() => GetStatistics(sl()));
 
-  sl.registerLazySingleton(
-    () => GetActiveServices(sl()),
-  );
+  sl.registerLazySingleton(() => GetActiveServices(sl()));
 
   sl.registerFactory(
     () => DashboardProvider(
@@ -234,25 +209,15 @@ Future<void> initInjector() async {
     () => PelangganRepositoryImpl(sl()),
   );
 
-  sl.registerLazySingleton(
-    () => GetPelanggan(sl()),
-  );
+  sl.registerLazySingleton(() => GetPelanggan(sl()));
 
-  sl.registerLazySingleton(
-    () => AddPelanggan(sl()),
-  );
+  sl.registerLazySingleton(() => AddPelanggan(sl()));
 
-  sl.registerLazySingleton(
-    () => UpdatePelanggan(sl()),
-  );
+  sl.registerLazySingleton(() => UpdatePelanggan(sl()));
 
-  sl.registerLazySingleton(
-    () => DeletePelanggan(sl()),
-  );
+  sl.registerLazySingleton(() => DeletePelanggan(sl()));
 
-  sl.registerLazySingleton(
-    () => SearchPelanggan(sl()),
-  );
+  sl.registerLazySingleton(() => SearchPelanggan(sl()));
 
   sl.registerFactory(
     () => PelangganProvider(
@@ -269,9 +234,7 @@ Future<void> initInjector() async {
     () => RentalRemoteDataSourceImpl(),
   );
 
-  sl.registerLazySingleton<RentalRepository>(
-    () => RentalRepositoryImpl(sl()),
-  );
+  sl.registerLazySingleton<RentalRepository>(() => RentalRepositoryImpl(sl()));
 
   sl.registerLazySingleton(() => GetRental(sl()));
   sl.registerLazySingleton(() => AddRental(sl()));
@@ -296,9 +259,7 @@ Future<void> initInjector() async {
     () => UserRemoteDataSourceImpl(),
   );
 
-  sl.registerLazySingleton<UserRepository>(
-    () => UserRepositoryImpl(sl()),
-  );
+  sl.registerLazySingleton<UserRepository>(() => UserRepositoryImpl(sl()));
 
   sl.registerLazySingleton(() => GetUsers(sl()));
   sl.registerLazySingleton(() => AddUser(sl()));
@@ -399,9 +360,7 @@ Future<void> initInjector() async {
     () => ReportRemoteDataSourceImpl(),
   );
 
-  sl.registerLazySingleton<ReportRepository>(
-    () => ReportRepositoryImpl(sl()),
-  );
+  sl.registerLazySingleton<ReportRepository>(() => ReportRepositoryImpl(sl()));
 
   sl.registerLazySingleton(() => GetReports(sl()));
 
@@ -411,6 +370,18 @@ Future<void> initInjector() async {
       getCarsUseCase: sl(),
       getPelangganUseCase: sl(),
       getServicesUseCase: sl(),
+      getPengembalianUseCase: sl(),
     ),
   );
+
+  // ================= NOTIFICATIONS =================
+  sl.registerLazySingleton<NotificationRemoteDataSource>(
+    () => NotificationRemoteDataSourceImpl(),
+  );
+
+  sl.registerLazySingleton<NotificationRepository>(
+    () => NotificationRepositoryImpl(sl()),
+  );
+
+  sl.registerFactory(() => NotificationProvider(repository: sl()));
 }
