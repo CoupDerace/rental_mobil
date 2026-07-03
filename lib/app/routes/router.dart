@@ -20,6 +20,7 @@ import '../../../features/rental/presentation/pages/rental_page.dart';
 import '../../../features/reports/presentation/pages/reports_page.dart';
 import '../../../features/payment/presentation/pages/payments_page.dart';
 import '../../../features/pengembalian/presentation/pages/pengembalian_page.dart';
+import '../../../features/notifications/presentation/pages/notifications_page.dart';
 import 'routes.dart';
 
 import 'package:rental_mobil/shared/providers/auth_provider.dart';
@@ -34,12 +35,14 @@ class AppRouter {
     if (routeName == AppRoutes.splash ||
         routeName == AppRoutes.profile ||
         routeName == AppRoutes.editProfile ||
-        routeName == AppRoutes.settings) {
+        routeName == AppRoutes.settings ||
+        routeName == AppRoutes.notifications) {
       return true;
     }
 
     if (r == 'admin') {
-      if (routeName == AppRoutes.ownerDashboard || routeName == AppRoutes.operatorDashboard) {
+      if (routeName == AppRoutes.ownerDashboard ||
+          routeName == AppRoutes.operatorDashboard) {
         return false;
       }
       return true;
@@ -54,7 +57,8 @@ class AppRouter {
           routeName == AppRoutes.karyawan) {
         return false;
       }
-      if (routeName == AppRoutes.dashboard || routeName == AppRoutes.operatorDashboard) {
+      if (routeName == AppRoutes.dashboard ||
+          routeName == AppRoutes.operatorDashboard) {
         return false;
       }
       return true;
@@ -79,24 +83,27 @@ class AppRouter {
     final r = role.toLowerCase();
     if (r == 'owner') {
       return MaterialPageRoute(
-        builder: (_) => ChangeNotifierProvider(
-          create: (_) => sl<DashboardProvider>()..loadDashboard(),
-          child: const OwnerDashboard(),
-        ),
+        builder:
+            (_) => ChangeNotifierProvider(
+              create: (_) => sl<DashboardProvider>()..loadDashboard(),
+              child: const OwnerDashboard(),
+            ),
       );
     } else if (r == 'operator') {
       return MaterialPageRoute(
-        builder: (_) => ChangeNotifierProvider(
-          create: (_) => sl<DashboardProvider>()..loadDashboard(),
-          child: const OperatorDashboard(),
-        ),
+        builder:
+            (_) => ChangeNotifierProvider(
+              create: (_) => sl<DashboardProvider>()..loadDashboard(),
+              child: const OperatorDashboard(),
+            ),
       );
     } else {
       return MaterialPageRoute(
-        builder: (_) => ChangeNotifierProvider(
-          create: (_) => sl<DashboardProvider>()..loadDashboard(),
-          child: const DashboardPage(),
-        ),
+        builder:
+            (_) => ChangeNotifierProvider(
+              create: (_) => sl<DashboardProvider>()..loadDashboard(),
+              child: const DashboardPage(),
+            ),
       );
     }
   }
@@ -191,10 +198,15 @@ class AppRouter {
       case AppRoutes.settings:
         return _page(const SettingsPage());
 
+      case AppRoutes.notifications:
+        return _page(const NotificationsPage());
+
       default:
         return MaterialPageRoute(
-          builder: (_) =>
-              const Scaffold(body: Center(child: Text('404 - Page Not Found'))),
+          builder:
+              (_) => const Scaffold(
+                body: Center(child: Text('404 - Page Not Found')),
+              ),
         );
     }
   }

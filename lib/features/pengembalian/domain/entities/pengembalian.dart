@@ -5,6 +5,15 @@ class Pengembalian {
   final double denda;
   final String kondisiMobil;
   final DateTime? createdAt;
+  final String? namaPelanggan;
+  final String? namaMobil;
+  final String? platNomor;
+  final DateTime? tanggalSewa;
+  final DateTime? tanggalEstimasi;
+  final DateTime? tanggalPengembalian;
+  final double? totalBiaya;
+  final double? totalBayar;
+  final String? statusRental;
 
   const Pengembalian({
     required this.id,
@@ -13,5 +22,14 @@ class Pengembalian {
     required this.denda,
     required this.kondisiMobil,
     this.createdAt,
+    this.namaPelanggan,
+    this.namaMobil,
+    this.platNomor,
+    this.tanggalSewa,
+    this.tanggalEstimasi,
+    this.tanggalPengembalian,
+    this.totalBiaya,
+    this.totalBayar,
+    this.statusRental,
   });
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rental_mobil/core/network/supabase_service.dart';
 import '../../../../core/components/organism/app_scaffold.dart';
+import '../../../../core/components/atoms/notification_bell.dart';
 
 class OwnerDashboard extends StatefulWidget {
   const OwnerDashboard({super.key});
@@ -91,6 +92,9 @@ class _OwnerDashboardState extends State<OwnerDashboard> {
 
     return AppScaffold(
       title: "Dashboard Owner",
+      actions: const [
+        NotificationBell(),
+      ],
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : RefreshIndicator(

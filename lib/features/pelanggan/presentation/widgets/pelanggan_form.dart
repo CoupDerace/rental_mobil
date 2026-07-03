@@ -80,7 +80,29 @@ class _PelangganFormState extends State<PelangganForm> {
             controller: _noHpController,
             decoration: const InputDecoration(labelText: "Nomor HP"),
             keyboardType: TextInputType.phone,
-            validator: (v) => v == null || v.trim().isEmpty ? "Nomor HP wajib diisi" : null,
+            maxLength: 13,
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+            ],
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Nomor HP wajib diisi';
+              }
+
+              if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                return 'Nomor HP hanya boleh berisi angka';
+              }
+
+              if (value.length < 10) {
+                return 'Nomor HP minimal 10 digit';
+              }
+
+              if (value.length > 13) {
+                return 'Nomor HP maksimal 13 digit';
+              }
+
+              return null;
+            },
           ),
           const SizedBox(height: 12),
           DropdownButtonFormField<String>(

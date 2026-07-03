@@ -6,6 +6,7 @@ import '../widgets/dashboard_grid.dart';
 import '../widgets/dashboard_header.dart';
 import '../widgets/dashboard_recent_trannsaction.dart';
 import '../../../../core/components/organism/app_scaffold.dart';
+import '../../../../core/components/atoms/notification_bell.dart';
 
 class AdminDashboard extends StatefulWidget {
   const AdminDashboard({super.key});
@@ -21,6 +22,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
 
     return AppScaffold(
       title: 'Dashboard Admin',
+      actions: const [
+        NotificationBell(),
+      ],
       body: provider.loading
           ? const Center(child: CircularProgressIndicator())
           : RefreshIndicator(

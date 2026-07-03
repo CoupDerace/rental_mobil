@@ -5,6 +5,9 @@ import '../../../cars/domain/usecases/get_car.dart';
 import '../../../pelanggan/domain/entities/pelanggan.dart';
 import '../../../pelanggan/domain/usecases/get_pelanggan.dart';
 import '../../../services/domain/usecases/get_services.dart';
+import '../../../pengembalian/domain/entities/pengembalian.dart';
+import '../../../pengembalian/domain/usecases/get_pengembalian.dart';
+import '../../../pengembalian/data/models/pengembalian_model.dart';
 import '../../domain/entities/report.dart';
 import '../../domain/usecases/get_reports.dart';
 
@@ -13,17 +16,20 @@ class ReportsProvider extends ChangeNotifier {
   final GetCars getCarsUseCase;
   final GetPelanggan getPelangganUseCase;
   final GetServices getServicesUseCase;
+  final GetPengembalian getPengembalianUseCase;
 
   ReportsProvider({
     required this.getReportsUseCase,
     required this.getCarsUseCase,
     required this.getPelangganUseCase,
     required this.getServicesUseCase,
+    required this.getPengembalianUseCase,
   });
 
   final pendapatanSearchController = TextEditingController();
   final rentalSearchController = TextEditingController();
   final servisSearchController = TextEditingController();
+  final pengembalianSearchController = TextEditingController();
 
   DateTime _dariTanggal = DateTime.now().subtract(const Duration(days: 30));
   DateTime _sampaiTanggal = DateTime.now();
@@ -35,6 +41,7 @@ class ReportsProvider extends ChangeNotifier {
   List<Car> _cars = [];
   List<Pelanggan> _pelanggan = [];
   List<LaporanServis> _servisList = [];
+  List<Pengembalian> _pengembalian = [];
 
   bool _loading = false;
   String? _error;
@@ -43,6 +50,7 @@ class ReportsProvider extends ChangeNotifier {
   List<Car> get cars => _cars;
   List<Pelanggan> get pelanggan => _pelanggan;
   List<LaporanServis> get servisList => _servisList;
+  List<Pengembalian> get pengembalian => _pengembalian;
   bool get loading => _loading;
   String? get error => _error;
 
@@ -133,6 +141,51 @@ class ReportsProvider extends ChangeNotifier {
         .length;
   }
 
+  // Filtered Pengembalian List
+  List<Pengembalian> get filteredPengembalian {
+    final search = pengembalianSearchController.text.toLowerCase();
+    
+    final filtered = _pengembalian.where((item) {
+      final matchesSearch = (item.namaPelanggan?.toLowerCase().contains(search) ?? false) ||
+          (item.namaMobil?.toLowerCase().contains(search) ?? false) ||
+          (item.platNomor?.toLowerCase().contains(search) ?? false) ||
+          (item.statusRental?.toLowerCase().contains(search) ?? false) ||
+          (item.kondisiMobil.toLowerCase().contains(search));
+
+      final start = DateTime(dariTanggal.year, dariTanggal.month, dariTanggal.day);
+      final end = DateTime(sampaiTanggal.year, sampaiTanggal.month, sampaiTanggal.day, 23, 59, 59);
+      final date = item.tanggalPengembalian ?? item.tanggalKembali;
+      final matchesDate = date.isAfter(start.subtract(const Duration(seconds: 1))) &&
+          date.isBefore(end.add(const Duration(seconds: 1)));
+
+      return matchesSearch && matchesDate;
+    }).toList();
+
+    filtered.sort((a, b) {
+      final dateA = a.tanggalPengembalian ?? a.tanggalKembali;
+      final dateB = b.tanggalPengembalian ?? b.tanggalKembali;
+      return dateB.compareTo(dateA);
+    });
+
+    return filtered;
+  }
+
+  int get jumlahPengembalian => filteredPengembalian.length;
+
+  double get totalDenda {
+    return filteredPengembalian.fold(
+      0.0,
+      (sum, item) => sum + item.denda,
+    );
+  }
+
+  double get totalBayarPengembalian {
+    return filteredPengembalian.fold(
+      0.0,
+      (sum, item) => sum + (item.totalBayar ?? 0.0),
+    );
+  }
+
   Future<void> fetchReportData() async {
     _loading = true;
     _error = null;
@@ -145,10 +198,14 @@ class ReportsProvider extends ChangeNotifier {
       
       // Keep executing dependency just to satisfy call
       await getServicesUseCase();
+      await getPengembalianUseCase();
 
       // Read from DB view
       final servisResponse = await SupabaseService.from('laporan_servis').select();
       _servisList = (servisResponse as List).map((e) => LaporanServis.fromJson(e)).toList();
+
+      final response = await SupabaseService.from('laporan_pengembalian').select();
+      _pengembalian = (response as List).map((e) => PengembalianModel.fromJson(e)).toList();
     } catch (e) {
       _error = e.toString();
     }
@@ -162,6 +219,7 @@ class ReportsProvider extends ChangeNotifier {
     pendapatanSearchController.dispose();
     rentalSearchController.dispose();
     servisSearchController.dispose();
+    pengembalianSearchController.dispose();
     super.dispose();
   }
 }

@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import '../../../cars/domain/entities/car.dart';
 import '../../../pelanggan/domain/entities/pelanggan.dart';
+import '../../../pengembalian/domain/entities/pengembalian.dart';
 import '../../domain/entities/report.dart';
 
 class ExportExcelService {
@@ -208,6 +209,66 @@ class ExportExcelService {
     final bytes = excel.save();
     final dir = await getApplicationDocumentsDirectory();
     final file = File("${dir.path}/laporan_servis_${DateFormat('yyyyMMdd').format(DateTime.now())}.xlsx");
+    if (bytes != null) {
+      await file.writeAsBytes(bytes);
+    }
+    return file.path;
+  }
+
+  Future<String> exportPengembalianExcel({
+    required List<Pengembalian> data,
+    required DateTime dari,
+    required DateTime sampai,
+  }) async {
+    final excel = Excel.createExcel();
+    excel.rename(excel.getDefaultSheet()!, 'Laporan Pengembalian');
+    final returnSheet = excel['Laporan Pengembalian'];
+
+    final dateFmt = DateFormat('dd MMM yyyy');
+    final totalDendaValue = data.fold<double>(0.0, (sum, item) => sum + item.denda);
+    final totalPembayaran = data.fold<double>(0.0, (sum, item) => sum + (item.totalBayar ?? 0.0));
+
+    returnSheet.appendRow([TextCellValue("Laporan Pengembalian Rental Mobil")]);
+    returnSheet.appendRow([TextCellValue("Tanggal Cetak:"), TextCellValue(dateFmt.format(DateTime.now()))]);
+    returnSheet.appendRow([TextCellValue("Periode:"), TextCellValue("${dari.toIso8601String().split('T')[0]} s/d ${sampai.toIso8601String().split('T')[0]}")]);
+    returnSheet.appendRow([TextCellValue("Jumlah Pengembalian:"), IntCellValue(data.length)]);
+    returnSheet.appendRow([TextCellValue("Total Denda:"), DoubleCellValue(totalDendaValue)]);
+    returnSheet.appendRow([TextCellValue("Total Pembayaran:"), DoubleCellValue(totalPembayaran)]);
+    returnSheet.appendRow([]);
+
+    returnSheet.appendRow([
+      TextCellValue("Nama Pelanggan"),
+      TextCellValue("Nama Mobil"),
+      TextCellValue("Plat Nomor"),
+      TextCellValue("Tanggal Sewa"),
+      TextCellValue("Tanggal Estimasi"),
+      TextCellValue("Tanggal Pengembalian"),
+      TextCellValue("Biaya Rental"),
+      TextCellValue("Denda"),
+      TextCellValue("Total Bayar"),
+      TextCellValue("Kondisi Mobil"),
+      TextCellValue("Status Rental"),
+    ]);
+
+    for (var item in data) {
+      returnSheet.appendRow([
+        TextCellValue(item.namaPelanggan ?? ''),
+        TextCellValue(item.namaMobil ?? ''),
+        TextCellValue(item.platNomor ?? ''),
+        TextCellValue(item.tanggalSewa != null ? dateFmt.format(item.tanggalSewa!) : ''),
+        TextCellValue(item.tanggalEstimasi != null ? dateFmt.format(item.tanggalEstimasi!) : ''),
+        TextCellValue(item.tanggalPengembalian != null ? dateFmt.format(item.tanggalPengembalian!) : ''),
+        DoubleCellValue(item.totalBiaya ?? 0.0),
+        DoubleCellValue(item.denda),
+        DoubleCellValue(item.totalBayar ?? 0.0),
+        TextCellValue(item.kondisiMobil),
+        TextCellValue(item.statusRental ?? ''),
+      ]);
+    }
+
+    final bytes = excel.save();
+    final dir = await getApplicationDocumentsDirectory();
+    final file = File("${dir.path}/laporan_pengembalian_${DateFormat('yyyyMMdd').format(DateTime.now())}.xlsx");
     if (bytes != null) {
       await file.writeAsBytes(bytes);
     }

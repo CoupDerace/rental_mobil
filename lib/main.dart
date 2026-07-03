@@ -9,6 +9,9 @@ import 'app/routes/app.dart';
 import 'shared/providers/auth_provider.dart';
 import 'shared/providers/theme_provider.dart';
 import 'features/splash/presentation/providers/splash_provider.dart';
+import 'core/services/notification_service.dart';
+import 'core/services/background_service.dart';
+import 'features/notifications/presentation/providers/notification_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +25,11 @@ Future<void> main() async {
 
   await initInjector();
 
+  // Initialize notification and background services
+  await NotificationService.initialize();
+  await BackgroundService.initialize();
+  await BackgroundService.startPeriodicTask();
+
   final authProvider = AuthProvider();
   sl.registerSingleton<AuthProvider>(authProvider);
 
@@ -31,6 +39,9 @@ Future<void> main() async {
         ChangeNotifierProvider.value(value: authProvider),
         ChangeNotifierProvider(create: (_) => SplashProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(
+          create: (_) => sl<NotificationProvider>()..getUnreadCount(),
+        ),
       ],
       child: const RentalMobilApp(),
     ),
