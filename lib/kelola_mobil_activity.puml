@@ -1,0 +1,60 @@
+@startuml
+skinparam style strictuml
+title Activity Diagram - Kelola Data Mobil
+
+|Admin|
+start
+:Login ke sistem;
+:Pilih menu "Kelola Mobil";
+|Sistem|
+:Tampilkan daftar mobil;
+
+|Admin|
+:Pilih aksi (Tambah/Ubah/Hapus);
+
+switch (Jenis Aksi?)
+case ( Tambah )
+  |Admin|
+  :Isi form data mobil baru;
+  :Klik Simpan;
+  |Sistem|
+  if (Validasi Data) then (Valid)
+    :Simpan ke database;
+    :Tampilkan pesan sukses;
+  else (Tidak Valid)
+    :Tampilkan pesan error;
+  endif
+
+case ( Ubah )
+  |Admin|
+  :Pilih data mobil;
+  |Sistem|
+  :Tampilkan form ubah;
+  |Admin|
+  :Ubah data & Klik Simpan;
+  |Sistem|
+  if (Validasi Data) then (Valid)
+    :Update database;
+    :Tampilkan pesan sukses;
+  else (Tidak Valid)
+    :Tampilkan pesan error;
+  endif
+
+case ( Hapus )
+  |Admin|
+  :Pilih data mobil;
+  |Sistem|
+  :Tampilkan konfirmasi hapus;
+  |Admin|
+  :Klik Konfirmasi;
+  |Sistem|
+  :Hapus dari database;
+  :Tampilkan pesan sukses;
+endswitch
+
+|Sistem|
+:Refresh daftar mobil;
+|Admin|
+:Selesai;
+stop
+@enduml

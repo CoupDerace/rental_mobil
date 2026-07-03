@@ -4,6 +4,7 @@ import 'package:printing/printing.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:open_filex/open_filex.dart';
+import 'package:share_whatsapp/share_whatsapp.dart';
 
 class PdfPreviewPage extends StatelessWidget {
   final String pdfPath;
@@ -51,6 +52,40 @@ class PdfPreviewPage extends StatelessWidget {
         text: 'Laporan PDF Rental Mobil',
       ),
     );
+  }
+
+  Future<void> _shareToWhatsApp(BuildContext context) async {
+    try {
+      final isInstalled = await shareWhatsapp.installed();
+      if (!isInstalled) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Aplikasi WhatsApp tidak ditemukan."),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+        return;
+      }
+
+      final dir = await getApplicationDocumentsDirectory();
+      final savedFile = File("${dir.path}/$fileName");
+      
+      final pdfBytes = await File(pdfPath).readAsBytes();
+      await savedFile.writeAsBytes(pdfBytes);
+
+      await shareWhatsapp.shareFile(XFile(savedFile.path));
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Gagal membagikan ke WhatsApp: $e"),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
   }
 
   Future<void> _openFile(BuildContext context) async {
@@ -143,7 +178,7 @@ class PdfPreviewPage extends StatelessWidget {
                   ),
                 ),
                 ElevatedButton.icon(
-                  onPressed: _shareFile,
+                  onPressed: () => _shareToWhatsApp(context),
                   icon: const Icon(Icons.chat, size: 20),
                   label: const Text("WhatsApp"),
                   style: ElevatedButton.styleFrom(
