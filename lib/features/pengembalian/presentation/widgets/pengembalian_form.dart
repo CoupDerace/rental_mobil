@@ -20,6 +20,8 @@ class _PengembalianFormState extends State<PengembalianForm> {
   DateTime? _tanggalKembali;
   double _denda = 0.0;
   String _kondisiMobil = 'Baik';
+  double _dendaTerlambat = 0.0;
+  double _dendaKondisi = 0.0;
 
   late TextEditingController _tanggalKembaliController;
   late TextEditingController _dendaController;
@@ -28,13 +30,30 @@ class _PengembalianFormState extends State<PengembalianForm> {
   final _displayDateFormat = DateFormat('dd MMM yyyy');
   final _currencyFormat = NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ', decimalDigits: 0);
 
+  double _getConditionFine(String kondisi) {
+    switch (kondisi) {
+      case 'Lecet Ringan':
+        return 100000.0;
+      case 'Rusak Ringan':
+        return 300000.0;
+      case 'Rusak Berat':
+        return 1000000.0;
+      case 'Baik':
+      default:
+        return 0.0;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     _selectedRentalId = widget.pengembalian?.rentalId;
     _tanggalKembali = widget.pengembalian?.tanggalKembali;
-    _denda = widget.pengembalian?.denda ?? 0.0;
     _kondisiMobil = widget.pengembalian?.kondisiMobil ?? 'Baik';
+    _dendaKondisi = _getConditionFine(_kondisiMobil);
+    _denda = widget.pengembalian?.denda ?? 0.0;
+    _dendaTerlambat = _denda - _dendaKondisi;
+    if (_dendaTerlambat < 0) _dendaTerlambat = 0.0;
 
     _tanggalKembaliController = TextEditingController(
       text: _tanggalKembali != null ? _dateFormat.format(_tanggalKembali!) : '',
@@ -43,8 +62,11 @@ class _PengembalianFormState extends State<PengembalianForm> {
       text: _currencyFormat.format(_denda),
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<PengembalianProvider>().fetchFormDependencies();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await context.read<PengembalianProvider>().fetchFormDependencies();
+      if (mounted) {
+        _calculateDenda();
+      }
     });
   }
 
@@ -65,14 +87,18 @@ class _PengembalianFormState extends State<PengembalianForm> {
     if (selectedRental == null) return;
 
     final expectedReturnDate = selectedRental.tanggalKembali;
-    final lateDays = _tanggalKembali!.difference(expectedReturnDate).inDays;
+    final expectedDateOnly = DateTime(expectedReturnDate.year, expectedReturnDate.month, expectedReturnDate.day);
+    final kembaliDateOnly = DateTime(_tanggalKembali!.year, _tanggalKembali!.month, _tanggalKembali!.day);
+    final lateDays = kembaliDateOnly.difference(expectedDateOnly).inDays;
 
     setState(() {
       if (lateDays > 0) {
-        _denda = (lateDays * 100000).toDouble();
+        _dendaTerlambat = (lateDays * 100000).toDouble();
       } else {
-        _denda = 0.0;
+        _dendaTerlambat = 0.0;
       }
+      _dendaKondisi = _getConditionFine(_kondisiMobil);
+      _denda = _dendaTerlambat + _dendaKondisi;
       _dendaController.text = _currencyFormat.format(_denda);
     });
   }
@@ -191,10 +217,112 @@ class _PengembalianFormState extends State<PengembalianForm> {
                 setState(() {
                   _kondisiMobil = val;
                 });
+                _calculateDenda();
               }
             },
             validator: (v) => v == null ? "Kondisi mobil wajib dipilih" : null,
           ),
+ const SizedBox(height: 16),
+
+// Ringkasan Biaya Card
+Card(
+  elevation: 0,
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(12),
+    side: BorderSide(color: Theme.of(context).dividerColor),
+  ),
+  color: Theme.of(context).colorScheme.surface,
+  child: Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Total Biaya Pengembalian",
+          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+        ),
+
+        const Divider(height: 24),
+
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                "Denda Keterlambatan",
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.7),
+                    ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Text(
+              _currencyFormat.format(_dendaTerlambat),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
+            ),
+          ],
+        ),
+
+        const SizedBox(height: 8),
+
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                "Denda Kondisi Mobil",
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.7),
+                    ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Text(
+              _currencyFormat.format(_dendaKondisi),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
+            ),
+          ],
+        ),
+
+        const Divider(height: 24),
+
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                "Total Biaya Pengembalian",
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Text(
+              _currencyFormat.format(_denda),
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xFFFF7A1A),
+                  ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  ),
+),
           const SizedBox(height: 24),
 
           // Action Buttons

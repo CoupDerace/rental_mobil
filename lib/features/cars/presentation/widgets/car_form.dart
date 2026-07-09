@@ -14,7 +14,7 @@ class CarForm extends StatefulWidget {
 class _CarFormState extends State<CarForm> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _namaController;
-  late TextEditingController _tipeController;
+  String? _selectedTipe;
   late TextEditingController _tahunController;
   late TextEditingController _platController;
   late TextEditingController _hargaController;
@@ -24,7 +24,10 @@ class _CarFormState extends State<CarForm> {
   void initState() {
     super.initState();
     _namaController = TextEditingController(text: widget.car?['nama_mobil'] ?? '');
-    _tipeController = TextEditingController(text: widget.car?['tipe'] ?? '');
+    
+    final initialTipe = widget.car?['tipe'] ?? '';
+    _selectedTipe = ['SUV', 'MPV', 'Sedan', 'LCGC'].contains(initialTipe) ? initialTipe : null;
+
     _tahunController = TextEditingController(text: widget.car?['tahun']?.toString() ?? '');
     _platController = TextEditingController(text: widget.car?['plat_nomor'] ?? '');
     _hargaController = TextEditingController(text: widget.car?['harga_sewa_perhari']?.toString() ?? '');
@@ -48,13 +51,21 @@ class _CarFormState extends State<CarForm> {
             validator: (v) => v == null || v.trim().isEmpty ? "Nama Mobil wajib diisi" : null,
           ),
           const SizedBox(height: 12),
-          TextFormField(
-            controller: _tipeController,
-            decoration: const InputDecoration(labelText: "Tipe"),
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+          DropdownButtonFormField<String>(
+            value: _selectedTipe,
+            decoration: const InputDecoration(labelText: "Tipe Mobil"),
+            items: const [
+              DropdownMenuItem(value: 'SUV', child: Text('SUV')),
+              DropdownMenuItem(value: 'MPV', child: Text('MPV')),
+              DropdownMenuItem(value: 'Sedan', child: Text('Sedan')),
+              DropdownMenuItem(value: 'LCGC', child: Text('LCGC')),
             ],
-            validator: (v) => v == null || v.trim().isEmpty ? "Tipe wajib diisi" : null,
+            onChanged: (v) {
+              setState(() {
+                _selectedTipe = v;
+              });
+            },
+            validator: (v) => v == null || v.isEmpty ? "Tipe wajib dipilih" : null,
           ),
           const SizedBox(height: 12),
           TextFormField(
@@ -123,7 +134,7 @@ class _CarFormState extends State<CarForm> {
                   if (!_formKey.currentState!.validate()) return;
                   final carMap = {
                     'nama_mobil': _namaController.text.trim(),
-                    'tipe': _tipeController.text.trim(),
+                    'tipe': _selectedTipe ?? '',
                     'tahun': int.tryParse(_tahunController.text.trim()) ?? 2023,
                     'plat_nomor': _platController.text.trim(),
                     'harga_sewa_perhari': double.tryParse(_hargaController.text.trim()) ?? 0.0,
@@ -156,7 +167,6 @@ class _CarFormState extends State<CarForm> {
   @override
   void dispose() {
     _namaController.dispose();
-    _tipeController.dispose();
     _tahunController.dispose();
     _platController.dispose();
     _hargaController.dispose();
