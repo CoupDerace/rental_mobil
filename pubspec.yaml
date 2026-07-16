@@ -142,7 +142,7 @@ flutter_launcher_icons:
   android: true
   ios: true
 
-  image_path: assets/icons/app_icon.png
+  image_path: assets/logos/logo_rent.jpg
 
   min_sdk_android: 21
 
