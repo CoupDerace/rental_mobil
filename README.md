@@ -1,3 +1,31 @@
+# INFORMASI PROYEK
+Judul Proyek      : Implementasi Sistem Rental Mobil 
+                     Berbasis Mobile untuk Manajemen Penyewaan Kendaraan
+                     Pada Multi RentCar
+
+Mata Kuliah       : Project III
+
+Dosen Pembimbing Utama     : Dr. Moh. Ramaddan Julianti, M.T
+
+Konsentrasi       : Software Engineering
+
+Prodi             : Teknik Informatika
+
+Fakultas          : Teknologi Informasi dan Komunikasi
+
+Semester          : Genap
+
+Tahun Akademik    : 2025 - 2026
+
+Institut Teknologi dan Bisnis Bina Sarana Global, Tangerang
+
+
+# ANGGOTA MEMBER
+1. Afnan Dani Alaudin (1123150074)
+2. Muhammad Turtusi Afrizal Perdana (1123150012)
+
+---
+
 # Rental Mobil - Aplikasi Manajemen Penyewaan Mobil
 
 Aplikasi Rental Mobil adalah sistem manajemen penyewaan mobil berbasis mobile (Android & iOS) yang dirancang untuk mempermudah operasional bisnis rental mobil. Aplikasi ini dibangun menggunakan framework **Flutter** untuk sisi frontend dan **Supabase** sebagai backend (Database PostgreSQL, Authentication, dan Cloud Storage).
@@ -7,6 +35,7 @@ Sistem ini dilengkapi dengan **Role-Based Access Control (RBAC)** untuk membatas
 *   **Owner**: Memantau dashboard finansial, grafik pendapatan, statistik bisnis, serta mengunduh atau mencetak laporan transaksi dan operasional.
 *   **Operator**: Fokus pada pemantauan armada, pencatatan servis mobil berkala, serta menerima notifikasi pengingat.
 
+#### Link Apk = [APK MULTI RENTCAR](https://drive.google.com/drive/folders/1eMW_p3jfazVcspgbwsvU2OjKM2fVqIQH?usp=sharing)
 ---
 
 ## 1. Fitur Utama
